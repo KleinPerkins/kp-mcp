@@ -1,0 +1,30 @@
+{
+  "count": 2,
+  "events": [
+    {
+      "attendees": [
+        {"display_name": null, "email": "[redacted]", "response_status": "accepted"},
+        {"display_name": null, "email": "[redacted]", "response_status": "tentative"}
+      ],
+      "end": {"dateTime": "2026-06-20T09:30:00Z", "timeZone": "America/New_York"},
+      "extra": {},
+      "hangout_link": null,
+      "id": "evt001",
+      "location": null,
+      "start": {"dateTime": "2026-06-20T09:00:00Z", "timeZone": "America/New_York"},
+      "status": "confirmed",
+      "summary": "Team Standup"
+    },
+    {
+      "attendees": [],
+      "end": {"dateTime": "2026-06-20T13:00:00Z", "timeZone": "America/New_York"},
+      "extra": {},
+      "hangout_link": null,
+      "id": "evt002",
+      "location": "Cafe XYZ",
+      "start": {"dateTime": "2026-06-20T12:00:00Z", "timeZone": "America/New_York"},
+      "status": "confirmed",
+      "summary": "Lunch with Client"
+    }
+  ]
+}

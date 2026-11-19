@@ -1,0 +1,19 @@
+# BEGIN KleinPerkins/dev pr-automation protected paths (managed; do not hand-edit)
+/.github/workflows/** @KleinPerkins
+/.github/actions/** @KleinPerkins
+/.github/scripts/** @KleinPerkins
+/.github/CODEOWNERS @KleinPerkins
+/.github/dependabot.yml @KleinPerkins
+/.github/pr-automation.json @KleinPerkins
+# END KleinPerkins/dev pr-automation protected paths
+
+# kp-mcp CI/governance control plane. Ordinary source and documentation remain review-free.
+/.github/** @KleinPerkins
+/tools/ci_discover.py @KleinPerkins
+/pyproject.toml @KleinPerkins
+
+# BEGIN kleinperkins runnerless PR automation v3
+/.github/ @KleinPerkins
+/CODEOWNERS @KleinPerkins
+/_ops/ @KleinPerkins
+# END kleinperkins runnerless PR automation v3

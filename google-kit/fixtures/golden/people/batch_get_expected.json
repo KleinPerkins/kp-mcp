@@ -1,0 +1,15 @@
+{
+  "count": 2,
+  "people": [
+    {
+      "resource_name": "people/p001",
+      "names": [{"display_name": "Alice Smith", "family_name": "Smith", "given_name": "Alice"}],
+      "email_addresses": [{"value": "alice@example.com", "type": "work", "formatted_type": "Work"}]
+    },
+    {
+      "resource_name": "people/p002",
+      "names": [{"display_name": "Bob Jones", "family_name": "Jones", "given_name": "Bob"}],
+      "email_addresses": [{"value": "bob@example.com", "type": "work", "formatted_type": "Work"}]
+    }
+  ]
+}

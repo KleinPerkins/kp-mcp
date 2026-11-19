@@ -1,0 +1,16 @@
+{
+  "versions": [
+    {
+      "scriptId": "script001",
+      "versionNumber": 2,
+      "description": "Release v2",
+      "createTime": "2024-03-15T09:00:00Z"
+    },
+    {
+      "scriptId": "script001",
+      "versionNumber": 1,
+      "description": "Initial release",
+      "createTime": "2024-03-01T08:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "changes": [
+    {
+      "fileId": "file001",
+      "removed": false,
+      "time": "2024-03-20T10:00:00Z",
+      "file": {
+        "id": "file001",
+        "name": "Report",
+        "mimeType": "application/vnd.google-apps.document"
+      }
+    },
+    {
+      "fileId": "file002",
+      "removed": true,
+      "time": "2024-03-21T09:00:00Z"
+    }
+  ],
+  "newStartPageToken": "token_xyz",
+  "nextPageToken": null
+}

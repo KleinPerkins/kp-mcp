@@ -1,0 +1,10 @@
+{
+  "count": 1,
+  "people": [
+    {
+      "resource_name": "people/p003",
+      "names": [{"display_name": "Carol White", "family_name": "White", "given_name": "Carol"}],
+      "email_addresses": [{"value": "carol@example.com", "type": "work", "formatted_type": "Work"}]
+    }
+  ]
+}

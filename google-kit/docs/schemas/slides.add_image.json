@@ -1,0 +1,258 @@
+{
+  "description": "Add an image to a slide from a publicly accessible URL.",
+  "inputSchema": {
+    "description": "Input for ``slides.add_image``: add an image to a slide from a URL.",
+    "properties": {
+      "height": {
+        "default": 3.0,
+        "description": "Height in inches",
+        "title": "Height",
+        "type": "number"
+      },
+      "object_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Optional stable object ID override (for deterministic tests; auto-generated if omitted)",
+        "title": "Object Id"
+      },
+      "presentation_id": {
+        "title": "Presentation Id",
+        "type": "string"
+      },
+      "slide_id": {
+        "description": "Object ID of the target slide",
+        "title": "Slide Id",
+        "type": "string"
+      },
+      "url": {
+        "description": "Publicly accessible image URL",
+        "title": "Url",
+        "type": "string"
+      },
+      "width": {
+        "default": 4.0,
+        "description": "Width in inches",
+        "title": "Width",
+        "type": "number"
+      },
+      "x": {
+        "default": 1.0,
+        "description": "X position in inches",
+        "title": "X",
+        "type": "number"
+      },
+      "y": {
+        "default": 1.0,
+        "description": "Y position in inches",
+        "title": "Y",
+        "type": "number"
+      }
+    },
+    "required": [
+      "presentation_id",
+      "slide_id",
+      "url"
+    ],
+    "title": "SlidesAddImageInput",
+    "type": "object"
+  },
+  "name": "slides_add_image",
+  "outputSchema": {
+    "$defs": {
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      },
+      "SlidesAddImageData": {
+        "description": "Data payload for ``slides.add_image``.",
+        "properties": {
+          "object_id": {
+            "title": "Object Id",
+            "type": "string"
+          },
+          "presentation_id": {
+            "title": "Presentation Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "object_id",
+          "presentation_id"
+        ],
+        "title": "SlidesAddImageData",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/SlidesAddImageData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[SlidesAddImageData]",
+    "type": "object"
+  }
+}

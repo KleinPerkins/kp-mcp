@@ -1,0 +1,40 @@
+{
+  "presentationId": "pres001",
+  "title": "My Presentation",
+  "revisionId": "rev-abc123-nondeterministic",
+  "slides": [
+    {
+      "objectId": "slide001",
+      "slideProperties": {
+        "layoutObjectId": "layout001",
+        "masterObjectId": "master001"
+      },
+      "pageElements": [
+        {
+          "objectId": "elem001",
+          "shape": {
+            "placeholder": {
+              "type": "TITLE"
+            }
+          }
+        },
+        {
+          "objectId": "elem002",
+          "shape": {
+            "placeholder": {
+              "type": "BODY"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "objectId": "slide002",
+      "slideProperties": {
+        "layoutObjectId": "layout002",
+        "masterObjectId": "master001"
+      },
+      "pageElements": []
+    }
+  ]
+}

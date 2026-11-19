@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "resources": [
+    {
+      "uri": "snow-kit://guidance/query-safety",
+      "name": "query-safety",
+      "title": "Snowflake Query Safety",
+      "description": "Required safety boundaries and bounded-result practices for snow-kit queries.",
+      "mime_type": "text/markdown",
+      "audience": ["assistant", "user"],
+      "priority": 1.0,
+      "summary": "Use these boundaries for every Snowflake query. Server-side validation remains authoritative if this resource is not read.",
+      "sections": [
+        {
+          "heading": "Before querying",
+          "items": [
+            "Use approved analytics context when available, then inspect relevant metadata with catalog tools. Never invent table or column names.",
+            "If authoritative context is unavailable, say so. Do not substitute broad INFORMATION_SCHEMA exploration for missing business context.",
+            "Prefer fully qualified object names and select only the columns needed."
+          ]
+        },
+        {
+          "heading": "Bound the work",
+          "items": [
+            "Add an explicit SQL LIMIT when sampling. query_execute max_rows only caps rows returned to the client; it does not add LIMIT or reduce warehouse scanning.",
+            "Use catalog_describe_table before catalog_preview_table. Preview can expose sensitive row values, so request the smallest useful limit.",
+            "Treat warnings and truncated=true as part of the result, not as successful completeness."
+          ]
+        },
+        {
+          "heading": "Mutation boundary",
+          "items": [
+            "query_execute accepts only read-safe statements, although USE changes the shared Snowflake session context.",
+            "Write tools are hidden by default and still require explicit confirmation, justification, SQL policy validation, and a live-grant preflight when enabled."
+          ]
+        }
+      ]
+    },
+    {
+      "uri": "snow-kit://guidance/analytics-workflow",
+      "name": "analytics-workflow",
+      "title": "Context-Grounded Analytics Workflow",
+      "description": "A metadata-first workflow for evidence-backed Snowflake analysis.",
+      "mime_type": "text/markdown",
+      "audience": ["assistant", "user"],
+      "priority": 0.95,
+      "summary": "Separate authoritative business meaning, observed Snowflake metadata, query results, and inference so the final answer is auditable.",
+      "sections": [
+        {
+          "heading": "Workflow",
+          "items": [
+            "Read snow-kit://context/sources/status. If no authoritative source is available, disclose that limitation before analytical work.",
+            "Ground metric definitions, cohorts, filters, and time semantics in approved context when available.",
+            "Inspect the smallest relevant catalog scope, describe candidate tables, and only then compose bounded SQL.",
+            "Start with counts or narrow samples, validate assumptions against returned metadata, and expand only when justified."
+          ]
+        },
+        {
+          "heading": "Report",
+          "items": [
+            "Label business definitions as context evidence, schemas and grants as observed metadata, returned values as query evidence, and synthesis as inference.",
+            "Carry forward source unavailability, truncation, permission, and freshness warnings.",
+            "Do not claim that an empty or failed lookup proves the underlying data does not exist."
+          ]
+        }
+      ]
+    },
+    {
+      "uri": "snow-kit://guidance/permissions-and-recovery",
+      "name": "permissions-and-recovery",
+      "title": "Permissions and Recovery",
+      "description": "How to interpret access evidence and recover from snow-kit failures safely.",
+      "mime_type": "text/markdown",
+      "audience": ["assistant", "user"],
+      "priority": 0.9,
+      "summary": "Treat live Snowflake behavior as decisive. Local permission-spec context is explanatory and must never be presented as proof of effective access.",
+      "sections": [
+        {
+          "heading": "Permission evidence",
+          "items": [
+            "Use catalog_check_write_access for a bounded preflight. A positive preflight does not guarantee execution; Snowflake remains authoritative.",
+            "If local permission-spec context is unavailable or unrecognized, keep the result unknown and use live grants or the attempted operation for decisive evidence.",
+            "Never enable write access merely to diagnose a read or metadata failure."
+          ]
+        },
+        {
+          "heading": "Recovery",
+          "items": [
+            "Auth errors require sign-in or SSO recovery; do not retry them as transient failures.",
+            "Permission errors require a role, grant, or object-scope correction. Do not broaden discovery to work around denied access.",
+            "Validation errors require corrected input or SQL. Timeout means the outcome may be unknown; reduce scope before retrying.",
+            "Retry transient network failures at most once and only when the operation is safe to repeat. query_execute containing USE is not declared idempotent."
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+schema: kp-capability/v1
+id: google-kit
+kind: mcp
+flavor: 1
+scope: global
+owner: KleinPerkins
+install: install.sh
+post_mgmt: none
+provenance_source: ""
+provenance_ref: ""
+provenance_trust: ""

@@ -1,0 +1,406 @@
+{
+  "description": "Search Google Drive with rich filtering and pagination.",
+  "inputSchema": {
+    "description": "Input for ``drive.search``: search Drive with rich filtering.",
+    "properties": {
+      "after": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "After"
+      },
+      "before": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Before"
+      },
+      "created_after": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Created After"
+      },
+      "created_before": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Created Before"
+      },
+      "doc_type": {
+        "anyOf": [
+          {
+            "enum": [
+              "doc",
+              "sheet",
+              "slide",
+              "site",
+              "all-google"
+            ],
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Doc Type"
+      },
+      "limit": {
+        "default": 25,
+        "maximum": 1000,
+        "minimum": 1,
+        "title": "Limit",
+        "type": "integer"
+      },
+      "name": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Title/name search; maps to Drive 'name contains' clause.",
+        "title": "Name"
+      },
+      "owner": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Owner"
+      },
+      "query": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Full-text search string; maps to Drive 'fullText contains' clause.",
+        "title": "Query"
+      },
+      "scope": {
+        "default": "allDrives",
+        "enum": [
+          "user",
+          "allDrives",
+          "domain"
+        ],
+        "title": "Scope",
+        "type": "string"
+      },
+      "shared_with_me": {
+        "default": false,
+        "title": "Shared With Me",
+        "type": "boolean"
+      },
+      "sort": {
+        "default": "modifiedTime desc",
+        "title": "Sort",
+        "type": "string"
+      },
+      "starred": {
+        "default": false,
+        "title": "Starred",
+        "type": "boolean"
+      }
+    },
+    "title": "DriveSearchInput",
+    "type": "object"
+  },
+  "name": "drive_search",
+  "outputSchema": {
+    "$defs": {
+      "DriveFileItem": {
+        "description": "One file result from ``drive.search``.",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "modified": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Modified"
+          },
+          "owners": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Owners",
+            "type": "array"
+          },
+          "shared": {
+            "default": false,
+            "title": "Shared",
+            "type": "boolean"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "type",
+          "owners",
+          "url"
+        ],
+        "title": "DriveFileItem",
+        "type": "object"
+      },
+      "DriveSearchData": {
+        "description": "Data payload for ``drive.search``.",
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/$defs/DriveFileItem"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "truncated": {
+            "default": false,
+            "title": "Truncated",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "query",
+          "count",
+          "results"
+        ],
+        "title": "DriveSearchData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/DriveSearchData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[DriveSearchData]",
+    "type": "object"
+  }
+}

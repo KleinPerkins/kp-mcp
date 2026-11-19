@@ -1,0 +1,25 @@
+{
+  "notes": [
+    {
+      "name": "notes/abc001",
+      "title": "Meeting notes",
+      "body": {"text": {"text": "Q1 planning session"}},
+      "createTime": "2024-01-20T10:00:00Z",
+      "updateTime": "2024-01-20T10:00:00Z"
+    },
+    {
+      "name": "notes/abc002",
+      "title": "Shopping list",
+      "body": {
+        "list": {
+          "listItems": [
+            {"text": {"text": "Milk"}, "checked": false},
+            {"text": {"text": "Eggs"}, "checked": false}
+          ]
+        }
+      },
+      "createTime": "2024-01-21T12:00:00Z",
+      "updateTime": "2024-01-21T12:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+"""The single API-call choke-point for widget-kit.
+
+Every core function routes its backend call through ``execute`` so cross-cutting
+concerns live in exactly one place. The reference kit (google-kit) wraps retry,
+error-classification, observability, and audit here using ``kp_mcp_bootstrap``
+engines. This template ships the thin version — grow it as the kit matures.
+"""
+from __future__ import annotations
+
+from typing import Any, Callable
+
+
+def execute(api_fn: Callable[[], Any], *, op: str, posture: str) -> Any:
+    """Run one backend call.
+
+    Args:
+        api_fn:  Zero-arg callable performing the backend request.
+        op:      Dotted operation name (e.g. ``items.list``) — for logs/audit.
+        posture: ``read`` | ``write`` | ``destructive`` | ``admin``.
+
+    Returns:
+        The raw backend response; the caller wraps it in an ``OutputEnvelope``.
+    """
+    return api_fn()

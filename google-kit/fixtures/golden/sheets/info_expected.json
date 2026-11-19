@@ -1,0 +1,19 @@
+{
+  "title": "My Spreadsheet",
+  "spreadsheet_id": "ss001",
+  "url": "https://docs.google.com/spreadsheets/d/ss001",
+  "sheets": [
+    {
+      "sheet_id": 0,
+      "title": "Sheet1",
+      "row_count": 1000,
+      "col_count": 26
+    },
+    {
+      "sheet_id": 1234567,
+      "title": "Summary",
+      "row_count": 500,
+      "col_count": 10
+    }
+  ]
+}

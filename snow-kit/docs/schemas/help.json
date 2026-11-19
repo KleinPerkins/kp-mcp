@@ -1,0 +1,410 @@
+{
+  "description": "Call this first for an ambiguous or multi-step plain-English analytics request. Deterministically ranks visible snow-kit operations and conditional context-first workflows; performs no Snowflake query or context retrieval.",
+  "inputSchema": {
+    "additionalProperties": false,
+    "description": "Validated input for CLI and MCP help.",
+    "properties": {
+      "intent": {
+        "description": "Complete plain-English task to route.",
+        "maxLength": 1000,
+        "minLength": 1,
+        "title": "Intent",
+        "type": "string"
+      },
+      "limit": {
+        "default": 5,
+        "description": "Maximum ranked operation matches to return.",
+        "maximum": 10,
+        "minimum": 1,
+        "title": "Limit",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "intent"
+    ],
+    "title": "HelpInput",
+    "type": "object"
+  },
+  "name": "help",
+  "outputSchema": {
+    "$defs": {
+      "HelpAction": {
+        "description": "A conditional next action; help never executes it.",
+        "properties": {
+          "instruction": {
+            "title": "Instruction",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "clarify",
+              "call_tool",
+              "external"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "operation": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Operation"
+          },
+          "optional": {
+            "default": false,
+            "title": "Optional",
+            "type": "boolean"
+          },
+          "prerequisites": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Prerequisites",
+            "type": "array"
+          },
+          "stop_if": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Stop If",
+            "type": "array"
+          },
+          "tool": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Tool"
+          }
+        },
+        "required": [
+          "kind",
+          "instruction"
+        ],
+        "title": "HelpAction",
+        "type": "object"
+      },
+      "HelpMatch": {
+        "description": "Enriched ranked operation metadata.",
+        "properties": {
+          "cli": {
+            "title": "Cli",
+            "type": "string"
+          },
+          "matched_cues": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Matched Cues",
+            "type": "array"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/$defs/HelpReason"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "required_args": {
+            "items": {
+              "$ref": "#/$defs/RequiredArgument"
+            },
+            "title": "Required Args",
+            "type": "array"
+          },
+          "safety": {
+            "$ref": "#/$defs/SafetyPosture"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "suggested_next_actions": {
+            "items": {
+              "$ref": "#/$defs/HelpAction"
+            },
+            "title": "Suggested Next Actions",
+            "type": "array"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "tool": {
+            "title": "Tool",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "tool",
+          "cli",
+          "summary",
+          "score",
+          "matched_cues",
+          "reasons",
+          "required_args",
+          "safety",
+          "suggested_next_actions"
+        ],
+        "title": "HelpMatch",
+        "type": "object"
+      },
+      "HelpReason": {
+        "description": "One weighted cue explaining a score.",
+        "properties": {
+          "cue": {
+            "title": "Cue",
+            "type": "string"
+          },
+          "kind": {
+            "title": "Kind",
+            "type": "string"
+          },
+          "weight": {
+            "title": "Weight",
+            "type": "number"
+          }
+        },
+        "required": [
+          "kind",
+          "cue",
+          "weight"
+        ],
+        "title": "HelpReason",
+        "type": "object"
+      },
+      "RequiredArgument": {
+        "description": "One required argument for a recommended operation.",
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "required": {
+            "default": true,
+            "title": "Required",
+            "type": "boolean"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "description"
+        ],
+        "title": "RequiredArgument",
+        "type": "object"
+      },
+      "SafetyPosture": {
+        "description": "Live posture and conservative MCP hints for an operation.",
+        "properties": {
+          "destructive": {
+            "title": "Destructive",
+            "type": "boolean"
+          },
+          "guards": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Guards",
+            "type": "array"
+          },
+          "idempotent": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idempotent"
+          },
+          "open_world": {
+            "title": "Open World",
+            "type": "boolean"
+          },
+          "posture": {
+            "title": "Posture",
+            "type": "string"
+          },
+          "read_only": {
+            "title": "Read Only",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "posture",
+          "read_only",
+          "destructive",
+          "idempotent",
+          "open_world",
+          "guards"
+        ],
+        "title": "SafetyPosture",
+        "type": "object"
+      },
+      "WorkflowRecommendation": {
+        "description": "One conditional multi-step workflow recommendation.",
+        "properties": {
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Limitations",
+            "type": "array"
+          },
+          "matched_cues": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Matched Cues",
+            "type": "array"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/$defs/HelpReason"
+            },
+            "title": "Reasons",
+            "type": "array"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/$defs/HelpAction"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "summary": {
+            "title": "Summary",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "workflow_id": {
+            "title": "Workflow Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "workflow_id",
+          "title",
+          "summary",
+          "score",
+          "matched_cues",
+          "reasons",
+          "steps",
+          "limitations"
+        ],
+        "title": "WorkflowRecommendation",
+        "type": "object"
+      }
+    },
+    "description": "Structured deterministic help response.",
+    "properties": {
+      "clarification": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Clarification"
+      },
+      "deterministic": {
+        "default": true,
+        "title": "Deterministic",
+        "type": "boolean"
+      },
+      "intent": {
+        "title": "Intent",
+        "type": "string"
+      },
+      "matches": {
+        "items": {
+          "$ref": "#/$defs/HelpMatch"
+        },
+        "title": "Matches",
+        "type": "array"
+      },
+      "recommended_first_operation": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Recommended First Operation"
+      },
+      "safety_invariants": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Safety Invariants",
+        "type": "array"
+      },
+      "status": {
+        "enum": [
+          "matched",
+          "ambiguous",
+          "workflow",
+          "no_match"
+        ],
+        "title": "Status",
+        "type": "string"
+      },
+      "workflow_recommendations": {
+        "items": {
+          "$ref": "#/$defs/WorkflowRecommendation"
+        },
+        "title": "Workflow Recommendations",
+        "type": "array"
+      }
+    },
+    "required": [
+      "intent",
+      "status",
+      "matches",
+      "workflow_recommendations",
+      "safety_invariants"
+    ],
+    "title": "HelpOutput",
+    "type": "object"
+  }
+}

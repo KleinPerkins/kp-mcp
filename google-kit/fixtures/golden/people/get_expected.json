@@ -1,0 +1,9 @@
+{
+  "resource_name": "people/p001",
+  "names": [
+    {"display_name": "Alice Smith", "family_name": "Smith", "given_name": "Alice"}
+  ],
+  "email_addresses": [
+    {"value": "alice@example.com", "type": "work", "formatted_type": "Work"}
+  ]
+}

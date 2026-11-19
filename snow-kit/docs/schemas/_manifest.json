@@ -1,0 +1,18 @@
+{
+  "meta_tools": {
+    "help": "help.json"
+  },
+  "ops": {
+    "catalog.check_write_access": "catalog.check_write_access.json",
+    "catalog.describe_table": "catalog.describe_table.json",
+    "catalog.get_table_stats": "catalog.get_table_stats.json",
+    "catalog.list_tables": "catalog.list_tables.json",
+    "catalog.preview_table": "catalog.preview_table.json",
+    "catalog.search_columns": "catalog.search_columns.json",
+    "context.get": "context.get.json",
+    "context.search": "context.search.json",
+    "query.analyze": "query.analyze.json",
+    "query.execute": "query.execute.json",
+    "query.execute_write": "query.execute_write.json"
+  }
+}

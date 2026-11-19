@@ -1,0 +1,10 @@
+{
+  "people": [
+    {
+      "resourceName": "people/p003",
+      "names": [{"displayName": "Carol White", "familyName": "White", "givenName": "Carol"}],
+      "emailAddresses": [{"value": "carol@example.com", "type": "work", "formattedType": "Work"}]
+    }
+  ],
+  "nextPageToken": "tok001"
+}

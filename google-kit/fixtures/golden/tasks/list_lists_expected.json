@@ -1,0 +1,19 @@
+{
+  "count": 2,
+  "task_lists": [
+    {
+      "extra": {},
+      "id": "MDEwMTk2Mzc2NjQwNzE2MDQ2NTQ",
+      "kind": "tasks#taskList",
+      "title": "My Tasks",
+      "updated": "2024-01-15T10:00:00.000Z"
+    },
+    {
+      "extra": {},
+      "id": "MDEwMTk2Mzc2NjQwNzE2MDQ2NTU",
+      "kind": "tasks#taskList",
+      "title": "Work Tasks",
+      "updated": "2024-01-14T08:30:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "presentation_id": "pres001",
+  "title": "My Presentation",
+  "revision_id": "rev-abc123-nondeterministic",
+  "url": "https://docs.google.com/presentation/d/pres001/edit",
+  "slide_count": 2,
+  "slides": [
+    {
+      "object_id": "slide001",
+      "element_count": 2,
+      "layout_object_id": "layout001"
+    },
+    {
+      "object_id": "slide002",
+      "element_count": 0,
+      "layout_object_id": "layout002"
+    }
+  ]
+}

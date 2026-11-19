@@ -1,0 +1,28 @@
+{
+  "documentId": "doc001",
+  "body": {
+    "content": [
+      {
+        "startIndex": 0,
+        "endIndex": 1,
+        "sectionBreak": {}
+      },
+      {
+        "startIndex": 1,
+        "endIndex": 8,
+        "paragraph": {
+          "paragraphStyle": {"namedStyleType": "HEADING_1"},
+          "elements": [{"textRun": {"content": "Hello\n"}}]
+        }
+      },
+      {
+        "startIndex": 8,
+        "endIndex": 19,
+        "paragraph": {
+          "paragraphStyle": {"namedStyleType": "NORMAL_TEXT"},
+          "elements": [{"textRun": {"content": "Body text.\n"}}]
+        }
+      }
+    ]
+  }
+}

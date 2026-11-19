@@ -1,0 +1,12 @@
+{
+  "legacy_tool_map": {
+    "analyze_query": "query_analyze",
+    "describe_table": "catalog_describe_table",
+    "execute_query": "query_execute",
+    "get_table_stats": "catalog_get_table_stats",
+    "list_tables": "catalog_list_tables",
+    "preview_table": "catalog_preview_table",
+    "search_columns": "catalog_search_columns"
+  },
+  "parity_contract": "Semantic output equivalence: normalized rows, row counts, truncation warnings, error categories, and read-only rejection match legacy behavior without byte-identical text payloads."
+}

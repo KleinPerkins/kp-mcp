@@ -1,0 +1,872 @@
+[
+  {
+    "name": "calendar.create",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_CALENDAR_WRITE"
+  },
+  {
+    "name": "calendar.delete",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar"
+    ],
+    "posture": "destructive",
+    "flag": "GOOGLE_KIT_ENABLE_CALENDAR_WRITE"
+  },
+  {
+    "name": "calendar.freebusy",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "calendar.list",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "calendar.update",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_CALENDAR_WRITE"
+  },
+  {
+    "name": "calendar.watch",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_CALENDAR_WRITE"
+  },
+  {
+    "name": "docs.apply_styles",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DOCS_WRITE"
+  },
+  {
+    "name": "docs.batch_update",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DOCS_WRITE"
+  },
+  {
+    "name": "docs.extract_styles",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "docs.from_markdown",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DOCS_WRITE"
+  },
+  {
+    "name": "docs.styles_add",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "docs.styles_apply",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DOCS_WRITE"
+  },
+  {
+    "name": "docs.styles_doctor",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "docs.styles_remove",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "docs.styles_repair",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "docs.styles_set_default",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "docs.styles_update",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "docs.styles_view",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "drive.changes",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "drive.changes_watch",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DRIVE_WATCH"
+  },
+  {
+    "name": "drive.comments",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DRIVE_WRITE"
+  },
+  {
+    "name": "drive.copy",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DRIVE_WRITE"
+  },
+  {
+    "name": "drive.create",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DRIVE_WRITE"
+  },
+  {
+    "name": "drive.fetch",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly",
+      "https://www.googleapis.com/auth/drive.file",
+      "https://www.googleapis.com/auth/documents"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "drive.permissions",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DRIVE_WRITE"
+  },
+  {
+    "name": "drive.revisions",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "drive.search",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "drive.trash",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "destructive",
+    "flag": "GOOGLE_KIT_ENABLE_DRIVE_WRITE"
+  },
+  {
+    "name": "drive.update",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DRIVE_WRITE"
+  },
+  {
+    "name": "drive.upload",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_DRIVE_WRITE"
+  },
+  {
+    "name": "drive_activity.query",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.activity.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "events.delete",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly"
+    ],
+    "posture": "destructive",
+    "flag": "GOOGLE_KIT_ENABLE_EVENTS_WRITE"
+  },
+  {
+    "name": "events.list",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "events.patch",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_EVENTS_WRITE"
+  },
+  {
+    "name": "events.subscribe",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive.readonly"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_EVENTS_WRITE"
+  },
+  {
+    "name": "forms.add_item",
+    "scopes": [
+      "https://www.googleapis.com/auth/forms.body"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_FORMS_WRITE"
+  },
+  {
+    "name": "forms.create",
+    "scopes": [
+      "https://www.googleapis.com/auth/forms.body"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_FORMS_WRITE"
+  },
+  {
+    "name": "forms.get",
+    "scopes": [
+      "https://www.googleapis.com/auth/forms.body.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "forms.get_response",
+    "scopes": [
+      "https://www.googleapis.com/auth/forms.responses.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "forms.list_responses",
+    "scopes": [
+      "https://www.googleapis.com/auth/forms.responses.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "forms.publish",
+    "scopes": [
+      "https://www.googleapis.com/auth/forms.body"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_FORMS_WRITE"
+  },
+  {
+    "name": "forms.update",
+    "scopes": [
+      "https://www.googleapis.com/auth/forms.body"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_FORMS_WRITE"
+  },
+  {
+    "name": "forms.watches",
+    "scopes": [
+      "https://www.googleapis.com/auth/forms.body.readonly",
+      "https://www.googleapis.com/auth/forms.responses.readonly"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_FORMS_WRITE"
+  },
+  {
+    "name": "gmail.attachments",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.batch_modify",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.modify"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_GMAIL_WRITE"
+  },
+  {
+    "name": "gmail.draft",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.compose"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_GMAIL_WRITE"
+  },
+  {
+    "name": "gmail.get",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.history",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.labels",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.list",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.manage_labels",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.modify"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_GMAIL_WRITE"
+  },
+  {
+    "name": "gmail.modify",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.modify"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_GMAIL_WRITE"
+  },
+  {
+    "name": "gmail.profile",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.search",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.send",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.compose"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_GMAIL_WRITE"
+  },
+  {
+    "name": "gmail.thread_get",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.threads",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "gmail.watch",
+    "scopes": [
+      "https://www.googleapis.com/auth/gmail.readonly"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_GMAIL_WRITE"
+  },
+  {
+    "name": "keep.create",
+    "scopes": [
+      "https://www.googleapis.com/auth/keep"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_KEEP_WRITE"
+  },
+  {
+    "name": "keep.delete",
+    "scopes": [
+      "https://www.googleapis.com/auth/keep"
+    ],
+    "posture": "destructive",
+    "flag": "GOOGLE_KIT_ENABLE_KEEP_WRITE"
+  },
+  {
+    "name": "keep.get",
+    "scopes": [
+      "https://www.googleapis.com/auth/keep.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "keep.list",
+    "scopes": [
+      "https://www.googleapis.com/auth/keep.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "people.batch_get",
+    "scopes": [
+      "https://www.googleapis.com/auth/directory.readonly",
+      "https://www.googleapis.com/auth/contacts.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "people.connections",
+    "scopes": [
+      "https://www.googleapis.com/auth/contacts.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "people.get",
+    "scopes": [
+      "https://www.googleapis.com/auth/directory.readonly",
+      "https://www.googleapis.com/auth/contacts.readonly",
+      "https://www.googleapis.com/auth/userinfo.profile"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "people.list_directory",
+    "scopes": [
+      "https://www.googleapis.com/auth/directory.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "people.search_directory",
+    "scopes": [
+      "https://www.googleapis.com/auth/directory.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "recipes.build_styled",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents",
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_RECIPES_WRITE"
+  },
+  {
+    "name": "recipes.build_then_share",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents",
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_RECIPES_WRITE"
+  },
+  {
+    "name": "recipes.hydrate_then_refine",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents",
+      "https://www.googleapis.com/auth/drive.file",
+      "https://www.googleapis.com/auth/drive.readonly"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_RECIPES_WRITE"
+  },
+  {
+    "name": "recipes.template_merge",
+    "scopes": [
+      "https://www.googleapis.com/auth/documents",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_RECIPES_WRITE"
+  },
+  {
+    "name": "script.create",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SCRIPT_WRITE"
+  },
+  {
+    "name": "script.create_deployment",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.deployments"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SCRIPT_WRITE"
+  },
+  {
+    "name": "script.create_version",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SCRIPT_WRITE"
+  },
+  {
+    "name": "script.delete_deployment",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.deployments"
+    ],
+    "posture": "destructive",
+    "flag": "GOOGLE_KIT_ENABLE_SCRIPT_WRITE"
+  },
+  {
+    "name": "script.deployments",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects.readonly",
+      "https://www.googleapis.com/auth/script.deployments.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "script.get_content",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "script.get_deployment",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects.readonly",
+      "https://www.googleapis.com/auth/script.deployments.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "script.get_version",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "script.metrics",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.metrics"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "script.run",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects",
+      "https://www.googleapis.com/auth/script.external_request"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SCRIPT_WRITE"
+  },
+  {
+    "name": "script.update_content",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SCRIPT_WRITE"
+  },
+  {
+    "name": "script.update_deployment",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.deployments"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SCRIPT_WRITE"
+  },
+  {
+    "name": "script.versions",
+    "scopes": [
+      "https://www.googleapis.com/auth/script.projects.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "sheets.add_sheet",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SHEETS_WRITE"
+  },
+  {
+    "name": "sheets.append",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SHEETS_WRITE"
+  },
+  {
+    "name": "sheets.chart",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SHEETS_WRITE"
+  },
+  {
+    "name": "sheets.conditional_format",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SHEETS_WRITE"
+  },
+  {
+    "name": "sheets.create",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SHEETS_WRITE"
+  },
+  {
+    "name": "sheets.info",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "sheets.metadata",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SHEETS_WRITE"
+  },
+  {
+    "name": "sheets.pivot",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SHEETS_WRITE"
+  },
+  {
+    "name": "sheets.read",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "sheets.write",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SHEETS_WRITE"
+  },
+  {
+    "name": "slides.add_image",
+    "scopes": [
+      "https://www.googleapis.com/auth/presentations"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SLIDES_WRITE"
+  },
+  {
+    "name": "slides.add_slide",
+    "scopes": [
+      "https://www.googleapis.com/auth/presentations"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SLIDES_WRITE"
+  },
+  {
+    "name": "slides.create",
+    "scopes": [
+      "https://www.googleapis.com/auth/presentations",
+      "https://www.googleapis.com/auth/drive.file"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SLIDES_WRITE"
+  },
+  {
+    "name": "slides.get",
+    "scopes": [
+      "https://www.googleapis.com/auth/presentations.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "slides.thumbnail",
+    "scopes": [
+      "https://www.googleapis.com/auth/presentations.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "slides.update_text",
+    "scopes": [
+      "https://www.googleapis.com/auth/presentations"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_SLIDES_WRITE"
+  },
+  {
+    "name": "tasks.complete",
+    "scopes": [
+      "https://www.googleapis.com/auth/tasks"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_TASKS_WRITE"
+  },
+  {
+    "name": "tasks.create",
+    "scopes": [
+      "https://www.googleapis.com/auth/tasks"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_TASKS_WRITE"
+  },
+  {
+    "name": "tasks.delete",
+    "scopes": [
+      "https://www.googleapis.com/auth/tasks"
+    ],
+    "posture": "destructive",
+    "flag": "GOOGLE_KIT_ENABLE_TASKS_WRITE"
+  },
+  {
+    "name": "tasks.list",
+    "scopes": [
+      "https://www.googleapis.com/auth/tasks.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "tasks.list_lists",
+    "scopes": [
+      "https://www.googleapis.com/auth/tasks.readonly"
+    ],
+    "posture": "read",
+    "flag": null
+  },
+  {
+    "name": "tasks.update",
+    "scopes": [
+      "https://www.googleapis.com/auth/tasks"
+    ],
+    "posture": "write",
+    "flag": "GOOGLE_KIT_ENABLE_TASKS_WRITE"
+  }
+]

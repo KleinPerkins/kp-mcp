@@ -1,0 +1,44 @@
+[project]
+name = "google-kit"
+version = "0.3.0"
+description = "Standalone single-core/dual-surface Google Workspace toolkit (CLI + MCP)."
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2",
+    "certifi>=2024",
+    # Versioned sibling pin (R13): the built wheel records
+    # `Requires-Dist: kp-mcp-bootstrap==0.4.0` so a clean install from the tag
+    # knows exactly which sibling it needs. In-workspace dev still resolves to
+    # the local path via [tool.uv.sources] below (that override is uv-only and
+    # is NOT written into the published wheel metadata).
+    "kp-mcp-bootstrap==0.4.0",
+    "google-api-python-client>=2.197.0",
+    "google-auth>=2.55.0",
+    "markdown>=3.5",
+    "mcp>=1.28.1,<2",
+]
+
+[project.scripts]
+google-kit = "google_kit.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7",
+    "kp-mcp-testkit==0.1.0",
+]
+
+[tool.uv.sources]
+kp-mcp-bootstrap = { workspace = true }
+kp-mcp-testkit = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest-asyncio>=1.4.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/google_kit"]

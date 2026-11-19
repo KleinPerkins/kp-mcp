@@ -1,0 +1,45 @@
+"""Credential subcommands for widget-kit (login / status / logout).
+
+Auth is server-side via the macOS Keychain (``kp_mcp_bootstrap.secrets``). Never
+pass secrets as CLI/MCP arguments. ``status`` and ``logout`` work over the store
+out of the box; wire your domain's real OAuth/credential exchange in ``login``.
+"""
+from __future__ import annotations
+
+import sys
+
+from widget_kit.bootstrap import SERVER_NAME
+
+
+def _store() -> object:
+    """Return a Keychain store namespaced to this kit."""
+    from kp_mcp_bootstrap.secrets import KeychainSecretStore
+
+    class _Store(KeychainSecretStore):
+        SERVICE = SERVER_NAME
+
+    return _Store()
+
+
+def run_auth(args: list[str]) -> int:
+    """Dispatch the ``auth`` subcommand."""
+    sub = args[0] if args else "status"
+    if sub == "status":
+        store = _store()
+        ok = store.has("access_token")
+        print(f"{SERVER_NAME}: {'authenticated' if ok else 'not authenticated'}")
+        return 0 if ok else 1
+    if sub == "logout":
+        store = _store()
+        for key in ("access_token", "refresh_token"):
+            store.delete(key)
+        print(f"{SERVER_NAME}: logged out")
+        return 0
+    if sub == "login":
+        raise NotImplementedError(
+            "Wire your domain's OAuth/credential flow here, then persist tokens via "
+            "the SecretStore. kp_mcp_bootstrap.oauth.run_pkce_flow handles PKCE "
+            "loopback flows; see google-kit/src/google_kit/cli/auth.py for a reference."
+        )
+    print(f"error: unknown auth subcommand {sub!r}", file=sys.stderr)
+    return 2

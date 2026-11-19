@@ -1,0 +1,265 @@
+{
+  "description": "List Workspace Events subscriptions matching a filter.",
+  "inputSchema": {
+    "description": "Input for ``events.list``: list Workspace Events subscriptions.",
+    "properties": {
+      "filter": {
+        "description": "Filter string, e.g. 'target_resource=\"//drive.googleapis.com/files/<file-id>\"'.",
+        "title": "Filter",
+        "type": "string"
+      },
+      "page_size": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Max subscriptions to return.",
+        "title": "Page Size"
+      },
+      "page_token": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Continuation token.",
+        "title": "Page Token"
+      }
+    },
+    "required": [
+      "filter"
+    ],
+    "title": "EventsListInput",
+    "type": "object"
+  },
+  "name": "events_list",
+  "outputSchema": {
+    "$defs": {
+      "EventsListData": {
+        "description": "Data payload for ``events.list``.",
+        "properties": {
+          "subscriptions": {
+            "items": {
+              "$ref": "#/$defs/EventsSubscriptionItem"
+            },
+            "title": "Subscriptions",
+            "type": "array"
+          }
+        },
+        "required": [
+          "subscriptions"
+        ],
+        "title": "EventsListData",
+        "type": "object"
+      },
+      "EventsSubscriptionItem": {
+        "description": "One subscription entry returned by ``events.list``.",
+        "properties": {
+          "event_types": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Event Types",
+            "type": "array"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "state": {
+            "default": "",
+            "title": "State",
+            "type": "string"
+          },
+          "target_resource": {
+            "default": "",
+            "title": "Target Resource",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "EventsSubscriptionItem",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/EventsListData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[EventsListData]",
+    "type": "object"
+  }
+}

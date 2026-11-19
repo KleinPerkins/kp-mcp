@@ -1,0 +1,10 @@
+{
+  "watch": {
+    "eventType": "RESPONSES",
+    "target": {
+      "topic": {
+        "topicName": "projects/my-project/topics/my-forms-topic"
+      }
+    }
+  }
+}

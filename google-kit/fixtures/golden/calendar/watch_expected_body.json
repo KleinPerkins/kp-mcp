@@ -1,0 +1,6 @@
+{
+    "id": "test-channel-001",
+    "type": "web_hook",
+    "address": "https://example.com/webhook",
+    "expiration": 1750000000000
+}

@@ -1,0 +1,6 @@
+{
+  "attendees": [
+    {"email": "alice@example.com", "responseStatus": "accepted"},
+    {"email": "bob@example.com"}
+  ]
+}

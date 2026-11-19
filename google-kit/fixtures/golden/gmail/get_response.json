@@ -1,0 +1,18 @@
+{
+  "id": "msg001abc",
+  "threadId": "thread001abc",
+  "labelIds": ["INBOX", "UNREAD"],
+  "snippet": "Hello Gmail test body content.",
+  "payload": {
+    "mimeType": "text/plain",
+    "headers": [
+      {"name": "Subject", "value": "Test Subject"},
+      {"name": "From", "value": "sender@example.com"},
+      {"name": "Date", "value": "Mon, 15 Jan 2024 10:00:00 +0000"}
+    ],
+    "body": {
+      "size": 30,
+      "data": "SGVsbG8gR21haWwgdGVzdCBib2R5IGNvbnRlbnQu"
+    }
+  }
+}

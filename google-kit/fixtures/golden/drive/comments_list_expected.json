@@ -1,0 +1,18 @@
+{
+  "action": "list",
+  "comment": null,
+  "comments": [
+    {
+      "id": "comment001",
+      "content": "Great doc!",
+      "author": {"displayName": "Alice"},
+      "resolved": false
+    },
+    {
+      "id": "comment002",
+      "content": "Needs more detail.",
+      "author": {"displayName": "Bob"},
+      "resolved": true
+    }
+  ]
+}

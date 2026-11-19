@@ -1,0 +1,174 @@
+{
+  "description": "Read one bounded approved document or section from its pinned revision. Use this for: get analytics context; read this approved context section; analytics; context; provenance. Requires the opaque document_id and exact revision returned by context.search; content and sections are bounded and redacted.",
+  "inputSchema": {
+    "properties": {
+      "document_id": {
+        "pattern": "^[a-f0-9]{24}$",
+        "title": "Document Id",
+        "type": "string"
+      },
+      "max_chars": {
+        "default": 6000,
+        "maximum": 12000,
+        "minimum": 200,
+        "title": "Max Chars",
+        "type": "integer"
+      },
+      "revision": {
+        "pattern": "^[a-f0-9]{40,64}$",
+        "title": "Revision",
+        "type": "string"
+      },
+      "section": {
+        "anyOf": [
+          {
+            "maxLength": 200,
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Section"
+      }
+    },
+    "required": [
+      "document_id",
+      "revision"
+    ],
+    "title": "ContextGetInput",
+    "type": "object"
+  },
+  "name": "context_get",
+  "outputSchema": {
+    "$defs": {
+      "ContextGetData": {
+        "properties": {
+          "authority": {
+            "title": "Authority",
+            "type": "string"
+          },
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "document_id": {
+            "title": "Document Id",
+            "type": "string"
+          },
+          "metadata_complete": {
+            "title": "Metadata Complete",
+            "type": "boolean"
+          },
+          "provenance": {
+            "$ref": "#/$defs/ContextProvenance"
+          },
+          "section": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Section"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "truncated": {
+            "title": "Truncated",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "document_id",
+          "title",
+          "section",
+          "content",
+          "truncated",
+          "authority",
+          "metadata_complete",
+          "provenance"
+        ],
+        "title": "ContextGetData",
+        "type": "object"
+      },
+      "ContextProvenance": {
+        "properties": {
+          "relative_path": {
+            "title": "Relative Path",
+            "type": "string"
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "string"
+          },
+          "source_id": {
+            "title": "Source Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_id",
+          "revision",
+          "relative_path"
+        ],
+        "title": "ContextProvenance",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Per-operation metadata returned in the envelope.",
+        "properties": {
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/ContextGetData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[ContextGetData]",
+    "type": "object"
+  }
+}

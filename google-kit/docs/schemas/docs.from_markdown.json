@@ -1,0 +1,261 @@
+{
+  "description": "Convert Markdown to a styled Google Doc using the legacy formatting contract.",
+  "inputSchema": {
+    "description": "Input for ``docs.from_markdown``: convert Markdown to a styled Google Doc.\n\n``markdown_content`` is the raw Markdown text.\n``title`` becomes the Google Doc title.\n``folder_id`` optionally places the doc in that Drive folder.",
+    "properties": {
+      "folder_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Folder Id"
+      },
+      "markdown_content": {
+        "title": "Markdown Content",
+        "type": "string"
+      },
+      "style_overrides": {
+        "anyOf": [
+          {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Style Overrides"
+      },
+      "style_profile": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Style Profile"
+      },
+      "title": {
+        "title": "Title",
+        "type": "string"
+      }
+    },
+    "required": [
+      "markdown_content",
+      "title"
+    ],
+    "title": "DocsFromMarkdownInput",
+    "type": "object"
+  },
+  "name": "docs_from_markdown",
+  "outputSchema": {
+    "$defs": {
+      "DocsFromMarkdownData": {
+        "description": "Data payload for ``docs.from_markdown``.",
+        "properties": {
+          "doc_id": {
+            "title": "Doc Id",
+            "type": "string"
+          },
+          "formatting_requests_applied": {
+            "title": "Formatting Requests Applied",
+            "type": "integer"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "doc_id",
+          "url",
+          "title",
+          "formatting_requests_applied"
+        ],
+        "title": "DocsFromMarkdownData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/DocsFromMarkdownData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[DocsFromMarkdownData]",
+    "type": "object"
+  }
+}

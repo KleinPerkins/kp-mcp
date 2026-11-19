@@ -1,0 +1,17 @@
+{
+  "requests": [
+    {
+      "insertText": {
+        "location": {"index": 1},
+        "text": "Hello World\n"
+      }
+    },
+    {
+      "updateTextStyle": {
+        "range": {"startIndex": 1, "endIndex": 12},
+        "textStyle": {"bold": true},
+        "fields": "bold"
+      }
+    }
+  ]
+}

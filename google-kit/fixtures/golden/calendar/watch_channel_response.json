@@ -1,0 +1,7 @@
+{
+    "kind": "api#channel",
+    "id": "test-channel-001",
+    "resourceId": "res-xyz-001",
+    "resourceUri": "https://www.googleapis.com/calendar/v3/calendars/primary/events?alt=json",
+    "expiration": "1750000000000"
+}

@@ -1,0 +1,21 @@
+{
+  "count": 2,
+  "notes": [
+    {
+      "body_text": "Q1 planning session",
+      "create_time": "2024-01-20T10:00:00Z",
+      "extra": {},
+      "name": "notes/abc001",
+      "title": "Meeting notes",
+      "update_time": "2024-01-20T10:00:00Z"
+    },
+    {
+      "body_text": null,
+      "create_time": "2024-01-21T12:00:00Z",
+      "extra": {},
+      "name": "notes/abc002",
+      "title": "Shopping list",
+      "update_time": "2024-01-21T12:00:00Z"
+    }
+  ]
+}

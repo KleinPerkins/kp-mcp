@@ -1,0 +1,30 @@
+{
+  "requests": [
+    {
+      "createImage": {
+        "elementProperties": {
+          "pageObjectId": "slide001",
+          "size": {
+            "height": {
+              "magnitude": 2743200,
+              "unit": "EMU"
+            },
+            "width": {
+              "magnitude": 3657600,
+              "unit": "EMU"
+            }
+          },
+          "transform": {
+            "scaleX": 1,
+            "scaleY": 1,
+            "translateX": 914400,
+            "translateY": 914400,
+            "unit": "EMU"
+          }
+        },
+        "objectId": "image_test001",
+        "url": "https://example.com/img.jpg"
+      }
+    }
+  ]
+}

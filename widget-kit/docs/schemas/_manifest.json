@@ -1,0 +1,6 @@
+{
+  "ops": {
+    "items.create": "items.create.json",
+    "items.list": "items.list.json"
+  }
+}

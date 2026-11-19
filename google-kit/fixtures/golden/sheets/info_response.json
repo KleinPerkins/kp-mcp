@@ -1,0 +1,28 @@
+{
+  "spreadsheetId": "ss001",
+  "properties": {
+    "title": "My Spreadsheet"
+  },
+  "sheets": [
+    {
+      "properties": {
+        "sheetId": 0,
+        "title": "Sheet1",
+        "gridProperties": {
+          "rowCount": 1000,
+          "columnCount": 26
+        }
+      }
+    },
+    {
+      "properties": {
+        "sheetId": 1234567,
+        "title": "Summary",
+        "gridProperties": {
+          "rowCount": 500,
+          "columnCount": 10
+        }
+      }
+    }
+  ]
+}

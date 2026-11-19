@@ -1,0 +1,66 @@
+---
+description: >
+  Safety guardrails for agents invoking snow-kit via MCP. Load when using any
+  snow-kit MCP tool or reviewing code that calls these tools.
+globs:
+alwaysApply: false
+---
+
+# Snow-kit MCP Safety Rule
+
+## Default posture
+
+Treat snow-kit as read-only unless the operator explicitly sets
+`SNOW_KIT_ENABLE_WRITE=1`. Write/destructive MCP tools are hidden by default and
+must still reject direct calls while the flag is absent.
+
+## Browser SSO
+
+Auth is Snowflake `externalbrowser`, not Keychain. Never pass passwords, tokens,
+PATs, or browser cookies as MCP arguments. If a first call needs SSO, stop and
+ask the operator to run `snow-kit auth login` in a terminal, because browser auth
+can exceed MCP transport timeouts.
+
+## Read queries
+
+For analytical work, call `context_search` before broad catalog discovery. Use
+`context_get` for the smallest relevant section, then pass its opaque
+`document_id` and exact `revision` in query `context_refs`. If context search
+has no match or is unavailable, do not backsolve the schema through broad
+`INFORMATION_SCHEMA` exploration. Warning mode preserves existing reads;
+operator-configured strict mode rejects table-bearing SQL and unscoped catalog
+discovery without context.
+
+Use `query_execute` only for `SELECT`, `SHOW`, `DESCRIBE`, `EXPLAIN`, `USE`, or
+`WITH` read queries. Prefer scoped queries and explicit `LIMIT` clauses. Review
+AI-generated SQL before execution; do not infer Snowflake schema from broad
+information-schema exploration when an authoritative repo/source exists.
+
+## Grant checks
+
+Use `catalog_check_write_access` to inspect current-role grants and optional
+`snowflake-permission-specs` remediation context. Snowflake live grants are the
+decisive evidence returned by this check. Spec matches are explanatory only,
+may be absent or incomplete, and never imply access. The check does not prove
+all runtime prerequisites or guarantee that a later statement will execute.
+
+## Write mode
+
+Only use `query_execute_write` when all are true:
+
+- The operator explicitly enabled `SNOW_KIT_ENABLE_WRITE=1`.
+- The SQL has been human-reviewed.
+- `confirm_write=true` and `justification` is non-empty.
+- The target is scratch/workspace-appropriate for cleanup.
+- `catalog_check_write_access` or the tool's preflight confirms current-role
+  grants.
+
+Never attempt `ALTER`, `GRANT`, `REVOKE`, `UNDROP`, `CALL`,
+`EXECUTE IMMEDIATE`, `CREATE OR REPLACE`, `CREATE DATABASE`, `DROP DATABASE`,
+`DROP SCHEMA`, stage/file operations, or unscoped destructive cleanup.
+
+## Failure handling
+
+Retry transient connector/network failures once after verifying the query is
+idempotent. Do not retry permission, validation, or policy failures; surface the
+error and use `catalog_check_write_access` for remediation context.

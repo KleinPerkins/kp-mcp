@@ -1,0 +1,36 @@
+"""Tests for the sample ``items`` service: registry, core ops, protocol."""
+from __future__ import annotations
+
+from widget_kit.registry import all_specs, get
+from widget_kit.services.items.core import items_create, items_list
+from widget_kit.services.items.models import ItemsCreateInput, ItemsListInput
+
+
+def test_ops_registered() -> None:
+    names = {s.name for s in all_specs()}
+    assert {"items.list", "items.create"} <= names
+    assert get("items.list").posture == "read"
+    assert get("items.create").posture == "write"
+
+
+def test_items_list_reads(backend) -> None:
+    out = items_list(ItemsListInput(limit=5), backend=backend)
+    assert out.data.count == 2
+    assert out.data.items[0].name == "alpha"
+    assert out.meta.op == "items.list"
+
+
+def test_items_list_filters(backend) -> None:
+    out = items_list(ItemsListInput(query="be"), backend=backend)
+    assert out.data.count == 1
+    assert out.data.items[0].name == "beta"
+
+
+def test_items_create_writes(backend) -> None:
+    out = items_create(ItemsCreateInput(name="gamma"), backend=backend)
+    assert out.data.name == "gamma"
+    assert out.data.id
+
+
+def test_opspec_satisfies_protocol() -> None:
+    assert get("items.list").satisfies_opspec_like()

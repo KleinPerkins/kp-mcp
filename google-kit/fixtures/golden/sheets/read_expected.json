@@ -1,0 +1,9 @@
+{
+  "range": "Sheet1!A1:C3",
+  "rows": 3,
+  "values": [
+    ["Name", "Score", "Grade"],
+    ["Alice", "92", "A"],
+    ["Bob", "78", "B"]
+  ]
+}

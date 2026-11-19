@@ -1,0 +1,5 @@
+{
+  "to": "test@example.com",
+  "subject": "Test Subject",
+  "body": "Hello World"
+}

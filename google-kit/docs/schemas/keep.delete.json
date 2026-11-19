@@ -1,0 +1,210 @@
+{
+  "description": "Trash a Keep note (delete = trash, not permanent, matching legacy gkeep.py).",
+  "inputSchema": {
+    "description": "Input for ``keep.delete``: trash a note by resource name.",
+    "properties": {
+      "note_id": {
+        "description": "Note resource name, e.g. 'notes/abc123'",
+        "title": "Note Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "note_id"
+    ],
+    "title": "KeepDeleteInput",
+    "type": "object"
+  },
+  "name": "keep_delete",
+  "outputSchema": {
+    "$defs": {
+      "KeepDeleteData": {
+        "description": "Data payload for ``keep.delete``.",
+        "properties": {
+          "deleted": {
+            "title": "Deleted",
+            "type": "boolean"
+          },
+          "note_id": {
+            "title": "Note Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "deleted",
+          "note_id"
+        ],
+        "title": "KeepDeleteData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/KeepDeleteData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[KeepDeleteData]",
+    "type": "object"
+  }
+}

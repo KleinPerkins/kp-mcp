@@ -1,0 +1,88 @@
+"""Single source of truth for all widget-kit capabilities.
+
+Register each capability once as an ``OpSpec``; the CLI, MCP server, ``schema_gen``
+and ``docgen_gen`` all derive from this registry — adding a capability is one core
+function plus one ``register(...)`` call, and both surfaces plus the docs update.
+
+``OpSpec`` satisfies the ``kp_mcp_bootstrap.docgen.OpSpecLike`` protocol so the
+shared docgen engine works without a circular dependency.
+"""
+from __future__ import annotations
+
+from typing import Any, Callable
+
+from pydantic import BaseModel
+
+from kp_mcp_bootstrap.docgen import OpSpecLike
+
+
+class OpSpec:
+    """Registry entry for one widget-kit capability.
+
+    Attributes:
+        name:         Unique dotted name, e.g. ``items.list``.
+        fn:           Typed core function (Pydantic in / Pydantic out; no argparse).
+        input_model:  Pydantic model class for the operation's input.
+        output_model: Pydantic ``OutputEnvelope[...]`` model class.
+        posture:      One of ``read`` | ``write`` | ``destructive`` | ``admin``.
+        scopes:       Auth scopes required.
+        perf:         Performance / quota metadata.
+        batching:     Batching configuration.
+        formatting:   Output formatting hints.
+        examples:     Runnable example dicts (description / input / cli).
+        aliases:      Natural-language trigger phrases (intent helper).
+        keywords:     Intent keywords (intent helper).
+    """
+
+    def __init__(
+        self,
+        name: str,
+        fn: Callable[..., Any],
+        input_model: type[BaseModel],
+        output_model: type[BaseModel],
+        posture: str,
+        scopes: list[str],
+        perf: dict[str, Any] | None = None,
+        batching: dict[str, Any] | None = None,
+        formatting: dict[str, Any] | None = None,
+        examples: list[Any] | None = None,
+        aliases: list[str] | None = None,
+        keywords: list[str] | None = None,
+    ) -> None:
+        self.name = name
+        self.fn = fn
+        self.input_model = input_model
+        self.output_model = output_model
+        self.posture = posture
+        self.scopes = scopes
+        self.perf = perf or {}
+        self.batching = batching or {}
+        self.formatting = formatting or {}
+        self.examples = examples or []
+        self.aliases = aliases or []
+        self.keywords = keywords or []
+
+    def satisfies_opspec_like(self) -> bool:
+        """Verify this instance satisfies the OpSpecLike protocol."""
+        return isinstance(self, OpSpecLike)
+
+
+_REGISTRY: dict[str, OpSpec] = {}
+
+
+def register(spec: OpSpec) -> OpSpec:
+    """Add an OpSpec to the registry. Raises if the name is already registered."""
+    if spec.name in _REGISTRY:
+        raise ValueError(f"OpSpec {spec.name!r} is already registered.")
+    _REGISTRY[spec.name] = spec
+    return spec
+
+
+def get(name: str) -> OpSpec:
+    """Retrieve a registered OpSpec by name. Raises KeyError if absent."""
+    return _REGISTRY[name]
+
+
+def all_specs() -> list[OpSpec]:
+    """Return all registered OpSpec entries in registration order."""
+    return list(_REGISTRY.values())

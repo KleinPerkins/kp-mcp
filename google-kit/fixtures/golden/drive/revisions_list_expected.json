@@ -1,0 +1,17 @@
+{
+  "revision": null,
+  "revisions": [
+    {
+      "id": "1",
+      "modifiedTime": "2024-03-20T10:00:00Z",
+      "lastModifyingUser": {"displayName": "Alice"},
+      "size": "1024"
+    },
+    {
+      "id": "2",
+      "modifiedTime": "2024-03-21T11:00:00Z",
+      "lastModifyingUser": {"displayName": "Bob"},
+      "size": "2048"
+    }
+  ]
+}

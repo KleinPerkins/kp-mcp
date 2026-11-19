@@ -1,0 +1,35 @@
+---
+description: >
+  Safety guardrails for agents invoking __KIT_NAME__ via MCP. Load when using any
+  __KIT_NAME__ MCP tool or reviewing code that calls these tools.
+globs:
+alwaysApply: false
+---
+
+# __DOMAIN_TITLE__-kit MCP Safety Rule
+
+## Tool postures and confirmation requirements
+
+| Posture | Confirmation required | Retry on failure |
+|---------|----------------------|------------------|
+| `read` | Never | Yes (transient / quota) |
+| `write` | Before first mutation in session | Yes (transient / quota) |
+| `admin` | Always, before each call | No |
+| `destructive` | Always, before each call | Never |
+
+## Scope and secret hygiene
+
+Never pass credentials as tool arguments. All auth is handled server-side via the
+macOS Keychain. Tool arguments carry data only — never tokens or secrets.
+
+## Error taxonomy
+
+| Error class | Agent action |
+|-------------|--------------|
+| `Transient` | Handled automatically (max attempts); escalate if all fail |
+| `QuotaRateLimit` | Wait `retry_after`; retry once; escalate |
+| `Auth` | Stop; inform operator to run `__KIT_NAME__ auth login` |
+| `Permission` | Stop; do NOT retry |
+| `NotFound` | Surface error; do NOT retry |
+| `Validation` | Fix input; retry once |
+| `Unknown` | Escalate immediately |

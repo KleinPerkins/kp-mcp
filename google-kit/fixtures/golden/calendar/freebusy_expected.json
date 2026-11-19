@@ -1,0 +1,17 @@
+{
+  "calendars": [
+    {
+      "busy": [
+        {"end": "2026-06-20T09:30:00Z", "start": "2026-06-20T09:00:00Z"},
+        {"end": "2026-06-20T15:00:00Z", "start": "2026-06-20T14:00:00Z"}
+      ],
+      "calendar_id": "alice@example.com"
+    },
+    {
+      "busy": [],
+      "calendar_id": "bob@example.com"
+    }
+  ],
+  "time_max": "2026-06-20T17:00:00Z",
+  "time_min": "2026-06-20T09:00:00Z"
+}

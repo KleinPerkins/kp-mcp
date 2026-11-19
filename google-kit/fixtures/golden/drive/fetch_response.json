@@ -1,0 +1,15 @@
+{
+  "_meta": {
+    "id": "doc001",
+    "name": "My Report",
+    "mimeType": "application/vnd.google-apps.document",
+    "createdTime": "2024-01-15T10:00:00.000Z",
+    "modifiedTime": "2024-03-20T14:30:00.000Z",
+    "owners": [{"displayName": "Jane Doe", "emailAddress": "jane@example.com"}],
+    "lastModifyingUser": {"displayName": "Jane Doe", "emailAddress": "jane@example.com"},
+    "version": "42",
+    "webViewLink": "https://docs.google.com/document/d/doc001/edit",
+    "shared": true
+  },
+  "_export_html": "<html><body><h1>My Report</h1><p>This is the report body.</p></body></html>"
+}

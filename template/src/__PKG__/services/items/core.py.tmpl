@@ -1,0 +1,53 @@
+"""Core functions for the sample ``items`` service.
+
+Pattern: one typed core function per op. No argparse, no print. The ``backend``
+parameter is the only test-injection seam — default ``None`` resolves real auth
+in production (wire it via ``core/client`` + ``kp_mcp_bootstrap.secrets``). Tests
+inject a fake backend (see ``tests/test_items.py``).
+
+Parity: mock-read DONE (tests/test_items.py).
+"""
+from __future__ import annotations
+
+from typing import Any
+
+from __PKG__.core.client import execute
+from __PKG__.core.normalize import Meta
+
+from .models import (
+    Item,
+    ItemsCreateData,
+    ItemsCreateInput,
+    ItemsCreateOutput,
+    ItemsListData,
+    ItemsListInput,
+    ItemsListOutput,
+)
+
+
+def items_list(inp: ItemsListInput, *, backend: Any = None) -> ItemsListOutput:
+    """List items, optionally filtered by ``query`` (read)."""
+    raw = execute(
+        lambda: backend.list(query=inp.query, limit=inp.limit),
+        op="items.list",
+        posture="read",
+    )
+    items = [Item(id=str(r["id"]), name=str(r["name"])) for r in (raw or [])]
+    return ItemsListOutput(
+        data=ItemsListData(items=items, count=len(items)),
+        meta=Meta(op="items.list"),
+    )
+
+
+def items_create(inp: ItemsCreateInput, *, backend: Any = None) -> ItemsCreateOutput:
+    """Create one item by name (write)."""
+    raw = execute(
+        lambda: backend.create(name=inp.name),
+        op="items.create",
+        posture="write",
+    )
+    raw = raw or {}
+    return ItemsCreateOutput(
+        data=ItemsCreateData(id=str(raw.get("id", "")), name=str(raw.get("name", inp.name))),
+        meta=Meta(op="items.create"),
+    )

@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "name": "Code",
+      "type": "SERVER_JS",
+      "source": "function main() { Logger.log('Updated'); }"
+    }
+  ]
+}

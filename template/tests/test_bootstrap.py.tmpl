@@ -1,0 +1,12 @@
+"""CLI registration cannot implicitly grant itself fixture authority."""
+import pytest
+from kp_mcp_bootstrap.registrars import RegistrarError, ReasonCode
+from __PKG__.bootstrap import register_all
+
+
+def test_registration_requires_explicit_owner_context(tmp_path):
+    with pytest.raises(RegistrarError) as caught:
+        register_all(cursor_path=tmp_path / "cursor", codex_path=tmp_path / "codex",
+                     claude_path=tmp_path / "claude", binary_path="/opt/__KIT_NAME__")
+    assert caught.value.code is ReasonCode.CONTEXT_REQUIRED
+    assert not list(tmp_path.iterdir())

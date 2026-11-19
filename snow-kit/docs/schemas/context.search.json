@@ -1,0 +1,199 @@
+{
+  "description": "Search configured governed Markdown at one exact local Git revision. Use this for: search analytics context; find the authoritative metric definition; analytics; context; definitions; tables. Reads only configured Markdown blobs from one exact local Git commit; no fetch, working-tree content, sandbox, or unrestricted repository search.",
+  "inputSchema": {
+    "properties": {
+      "limit": {
+        "default": 5,
+        "maximum": 10,
+        "minimum": 1,
+        "title": "Limit",
+        "type": "integer"
+      },
+      "query": {
+        "maxLength": 500,
+        "minLength": 1,
+        "title": "Query",
+        "type": "string"
+      }
+    },
+    "required": [
+      "query"
+    ],
+    "title": "ContextSearchInput",
+    "type": "object"
+  },
+  "name": "context_search",
+  "outputSchema": {
+    "$defs": {
+      "ContextProvenance": {
+        "properties": {
+          "relative_path": {
+            "title": "Relative Path",
+            "type": "string"
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "string"
+          },
+          "source_id": {
+            "title": "Source Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source_id",
+          "revision",
+          "relative_path"
+        ],
+        "title": "ContextProvenance",
+        "type": "object"
+      },
+      "ContextSearchData": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "next_action": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Action"
+          },
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "results": {
+            "items": {
+              "$ref": "#/$defs/ContextSearchResult"
+            },
+            "title": "Results",
+            "type": "array"
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "string"
+          },
+          "truncated": {
+            "title": "Truncated",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "query",
+          "revision",
+          "results",
+          "count",
+          "truncated"
+        ],
+        "title": "ContextSearchData",
+        "type": "object"
+      },
+      "ContextSearchResult": {
+        "properties": {
+          "authority": {
+            "title": "Authority",
+            "type": "string"
+          },
+          "document_id": {
+            "title": "Document Id",
+            "type": "string"
+          },
+          "metadata_complete": {
+            "title": "Metadata Complete",
+            "type": "boolean"
+          },
+          "provenance": {
+            "$ref": "#/$defs/ContextProvenance"
+          },
+          "score": {
+            "title": "Score",
+            "type": "integer"
+          },
+          "snippet": {
+            "title": "Snippet",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Warnings",
+            "type": "array"
+          }
+        },
+        "required": [
+          "document_id",
+          "title",
+          "snippet",
+          "score",
+          "authority",
+          "metadata_complete",
+          "provenance"
+        ],
+        "title": "ContextSearchResult",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Per-operation metadata returned in the envelope.",
+        "properties": {
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/ContextSearchData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[ContextSearchData]",
+    "type": "object"
+  }
+}

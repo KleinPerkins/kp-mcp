@@ -1,0 +1,25 @@
+{
+  "requests": [
+    {
+      "createItem": {
+        "item": {
+          "title": "Rate your experience",
+          "questionItem": {
+            "question": {
+              "scaleQuestion": {
+                "low": 1,
+                "high": 5,
+                "lowLabel": "Low",
+                "highLabel": "High"
+              },
+              "required": false
+            }
+          }
+        },
+        "location": {
+          "index": 0
+        }
+      }
+    }
+  ]
+}

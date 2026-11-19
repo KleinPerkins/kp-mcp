@@ -1,0 +1,114 @@
+{
+  "description": "Execute one gated Snowflake write after confirmation, AST policy, and grant preflight. Use this for: execute snowflake write; snowflake; write; sql. Write-gated: requires SNOW_KIT_ENABLE_WRITE=1, explicit confirmation and all server-side policy and permission checks.",
+  "inputSchema": {
+    "properties": {
+      "confirm_write": {
+        "default": false,
+        "description": "Must be true for write execution.",
+        "title": "Confirm Write",
+        "type": "boolean"
+      },
+      "justification": {
+        "default": "",
+        "description": "Human-readable reason for audit context.",
+        "title": "Justification",
+        "type": "string"
+      },
+      "query": {
+        "description": "Single write SQL statement gated by SNOW_KIT_ENABLE_WRITE=1.",
+        "title": "Query",
+        "type": "string"
+      }
+    },
+    "required": [
+      "query"
+    ],
+    "title": "QueryExecuteWriteInput",
+    "type": "object"
+  },
+  "name": "query_execute_write",
+  "outputSchema": {
+    "$defs": {
+      "Meta": {
+        "description": "Per-operation metadata returned in the envelope.",
+        "properties": {
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "QueryExecuteWriteData": {
+        "properties": {
+          "affected_rows": {
+            "title": "Affected Rows",
+            "type": "integer"
+          },
+          "execution_time_ms": {
+            "title": "Execution Time Ms",
+            "type": "number"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "targets": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Targets",
+            "type": "array"
+          }
+        },
+        "required": [
+          "operation",
+          "targets",
+          "affected_rows",
+          "execution_time_ms"
+        ],
+        "title": "QueryExecuteWriteData",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/QueryExecuteWriteData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[QueryExecuteWriteData]",
+    "type": "object"
+  }
+}

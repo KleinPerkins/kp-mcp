@@ -1,0 +1,27 @@
+{
+  "requests": [
+    {
+      "createItem": {
+        "item": {
+          "title": "What is your role?",
+          "questionItem": {
+            "question": {
+              "choiceQuestion": {
+                "type": "RADIO",
+                "options": [
+                  {"value": "Engineer"},
+                  {"value": "Designer"},
+                  {"value": "Manager"}
+                ]
+              },
+              "required": true
+            }
+          }
+        },
+        "location": {
+          "index": 1
+        }
+      }
+    }
+  ]
+}

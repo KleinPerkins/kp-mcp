@@ -1,0 +1,292 @@
+{
+  "description": "Get a full Gmail thread (with its messages) by thread ID.",
+  "inputSchema": {
+    "description": "Input for ``gmail.thread_get``: get a full thread (with messages) by ID.",
+    "properties": {
+      "thread_id": {
+        "description": "Gmail thread ID",
+        "title": "Thread Id",
+        "type": "string"
+      }
+    },
+    "required": [
+      "thread_id"
+    ],
+    "title": "GmailThreadGetInput",
+    "type": "object"
+  },
+  "name": "gmail_thread_get",
+  "outputSchema": {
+    "$defs": {
+      "GmailThreadGetData": {
+        "description": "Data payload for ``gmail.thread_get``.",
+        "properties": {
+          "history_id": {
+            "default": "",
+            "description": "History ID of the thread",
+            "title": "History Id",
+            "type": "string"
+          },
+          "id": {
+            "description": "Thread ID",
+            "title": "Id",
+            "type": "string"
+          },
+          "message_count": {
+            "description": "Number of messages in the thread",
+            "title": "Message Count",
+            "type": "integer"
+          },
+          "messages": {
+            "description": "Messages in the thread, oldest first",
+            "items": {
+              "$ref": "#/$defs/GmailThreadMessage"
+            },
+            "title": "Messages",
+            "type": "array"
+          },
+          "snippet": {
+            "default": "",
+            "description": "Snippet of the thread's latest message",
+            "title": "Snippet",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "message_count",
+          "messages"
+        ],
+        "title": "GmailThreadGetData",
+        "type": "object"
+      },
+      "GmailThreadMessage": {
+        "description": "One message inside a thread (mirrors ``gmail.get`` message shape).",
+        "properties": {
+          "body": {
+            "default": "",
+            "description": "Decoded plain-text body, truncated at 500 chars (BD-8)",
+            "title": "Body",
+            "type": "string"
+          },
+          "date": {
+            "default": "",
+            "description": "Date header",
+            "title": "Date",
+            "type": "string"
+          },
+          "from_": {
+            "default": "",
+            "description": "From header",
+            "title": "From",
+            "type": "string"
+          },
+          "id": {
+            "description": "Message ID",
+            "title": "Id",
+            "type": "string"
+          },
+          "label_ids": {
+            "description": "Label IDs on the message",
+            "items": {
+              "type": "string"
+            },
+            "title": "Label Ids",
+            "type": "array"
+          },
+          "snippet": {
+            "default": "",
+            "description": "Short snippet of the message",
+            "title": "Snippet",
+            "type": "string"
+          },
+          "subject": {
+            "default": "",
+            "description": "Subject header",
+            "title": "Subject",
+            "type": "string"
+          },
+          "thread_id": {
+            "description": "Thread ID the message belongs to",
+            "title": "Thread Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "thread_id"
+        ],
+        "title": "GmailThreadMessage",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/GmailThreadGetData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[GmailThreadGetData]",
+    "type": "object"
+  }
+}

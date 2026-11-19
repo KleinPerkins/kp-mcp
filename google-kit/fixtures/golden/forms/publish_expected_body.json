@@ -1,0 +1,7 @@
+{
+  "publishSettings": {
+    "publishState": "PUBLISHED",
+    "isAcceptingResponses": true
+  },
+  "updateMask": "publishState,isAcceptingResponses"
+}

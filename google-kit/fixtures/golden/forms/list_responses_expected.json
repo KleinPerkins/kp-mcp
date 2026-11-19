@@ -1,0 +1,31 @@
+{
+  "count": 2,
+  "responses": [
+    {
+      "response_id": "resp001",
+      "create_time": "2025-01-10T14:00:00Z",
+      "answer_count": 2,
+      "answers": [
+        {
+          "question_id": "qid001",
+          "text_values": ["Alice"]
+        },
+        {
+          "question_id": "qid002",
+          "text_values": ["5"]
+        }
+      ]
+    },
+    {
+      "response_id": "resp002",
+      "create_time": "2025-01-11T09:30:00Z",
+      "answer_count": 1,
+      "answers": [
+        {
+          "question_id": "qid001",
+          "text_values": ["Bob"]
+        }
+      ]
+    }
+  ]
+}

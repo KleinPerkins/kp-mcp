@@ -1,0 +1,11 @@
+---
+description: Plan optional Python package-index distribution when explicitly requested. Ordinary local builds and version bumps use docs/dev/RELEASE.md.
+globs:
+alwaysApply: false
+---
+
+# Optional package-index distribution
+
+The original consumer migration record is omitted from this source successor because it contains private operational details. No index, consumer inventory, delivery status or authorization is inferred from it.
+
+Read [release guidance](../../docs/dev/RELEASE.md) and [source boundary](../../docs/source-successor.md). Before an explicitly authorized migration, identify the destination index, package names/versions, authentication mechanism and actual consuming environments. Prepare and validate packages locally before seeking any required publication or consumer-change authorization. Never commit credentials or infer a publishing grant from a planning request.

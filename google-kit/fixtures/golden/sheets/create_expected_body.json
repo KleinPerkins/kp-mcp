@@ -1,0 +1,9 @@
+{
+  "properties": {
+    "title": "Test Sheet"
+  },
+  "sheets": [
+    {"properties": {"title": "Tab1"}},
+    {"properties": {"title": "Tab2"}}
+  ]
+}

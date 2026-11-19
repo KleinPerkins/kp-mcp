@@ -1,0 +1,8 @@
+{
+  "query": "from:boss@example.com",
+  "count": 2,
+  "messages": [
+    {"id": "srch001xyz", "thread_id": "thread_srch001"},
+    {"id": "srch002xyz", "thread_id": "thread_srch002"}
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "baseline_commit": "ae4c7c9346adcb1e1f549840a59d60e3814d9420",
+  "case_count": 511,
+  "cli_json_sha256": "48d04513142ca12b5bc631f867370c8b6bad4c151beaa72249f0139c07760ab8",
+  "docs_file_count": 216,
+  "docs_tree_sha256": "2d240ebe8aee1c0a6c328ae676997b8dfa6dc63ac6c0652f9c5fa26b6cee64ea",
+  "kind_counts": {
+    "alias": 55,
+    "cli": 106,
+    "curated": 62,
+    "keyword": 95,
+    "op": 106,
+    "service": 87
+  },
+  "legacy_limit_cases": {
+    "large_count": 13,
+    "negative_one_count": 12
+  },
+  "mcp_json_sha256": "e7beba94176f27b43529a292a3b45e6468875d44183cd544e98d1cee11c1ec19",
+  "resolver_sha256": "3a06d0698e6cd0fbf0fa6e41e0e7171f4efc0131d1b36844bd51344163a49258"
+}

@@ -1,0 +1,408 @@
+{
+  "description": "Create, list, delete, or renew watches for a form.",
+  "inputSchema": {
+    "description": "Input for ``forms.watches``: create, list, delete, or renew form watches.\n\n``action=create`` requires an operator-provisioned Cloud Pub/Sub topic.\n``action=delete`` and ``action=renew`` require ``watch_id``.",
+    "properties": {
+      "action": {
+        "default": "create",
+        "description": "Watch operation to perform: create, list, delete, or renew",
+        "enum": [
+          "create",
+          "list",
+          "delete",
+          "renew"
+        ],
+        "title": "Action",
+        "type": "string"
+      },
+      "event_type": {
+        "default": "RESPONSES",
+        "description": "Watch event type: EVENT_TYPE_UNSPECIFIED | SCHEMA | RESPONSES",
+        "enum": [
+          "EVENT_TYPE_UNSPECIFIED",
+          "SCHEMA",
+          "RESPONSES"
+        ],
+        "title": "Event Type",
+        "type": "string"
+      },
+      "form_id": {
+        "description": "Google Forms form ID that owns the watch",
+        "title": "Form Id",
+        "type": "string"
+      },
+      "topic_name": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Fully-qualified Cloud Pub/Sub topic name, e.g. projects/<project>/topics/<topic>",
+        "title": "Topic Name"
+      },
+      "watch_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Watch ID required for delete and renew actions",
+        "title": "Watch Id"
+      }
+    },
+    "required": [
+      "form_id"
+    ],
+    "title": "FormsWatchesInput",
+    "type": "object"
+  },
+  "name": "forms_watches",
+  "outputSchema": {
+    "$defs": {
+      "FormsWatchRecord": {
+        "description": "One Forms watch returned by the Forms API.",
+        "properties": {
+          "create_time": {
+            "default": "",
+            "description": "RFC3339 watch creation time",
+            "title": "Create Time",
+            "type": "string"
+          },
+          "event_type": {
+            "default": "",
+            "description": "Watched event type, such as RESPONSES or SCHEMA",
+            "title": "Event Type",
+            "type": "string"
+          },
+          "expire_time": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "RFC3339 watch expiration time",
+            "title": "Expire Time"
+          },
+          "state": {
+            "default": "",
+            "description": "Watch lifecycle state returned by the API",
+            "title": "State",
+            "type": "string"
+          },
+          "watch_id": {
+            "description": "Forms API watch ID",
+            "title": "Watch Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "watch_id"
+        ],
+        "title": "FormsWatchRecord",
+        "type": "object"
+      },
+      "FormsWatchesData": {
+        "description": "Data payload for ``forms.watches``.",
+        "properties": {
+          "action": {
+            "description": "Watch action that was executed",
+            "title": "Action",
+            "type": "string"
+          },
+          "count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Number of watches returned by list",
+            "title": "Count"
+          },
+          "create_time": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Watch creation time for create and renew actions",
+            "title": "Create Time"
+          },
+          "deleted": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "True when delete completed successfully",
+            "title": "Deleted"
+          },
+          "event_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Watch event type for create and renew actions",
+            "title": "Event Type"
+          },
+          "expire_time": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Watch expiration time for create and renew actions",
+            "title": "Expire Time"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Watch state for create and renew actions",
+            "title": "State"
+          },
+          "watch_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Watch ID for create, delete, and renew actions",
+            "title": "Watch Id"
+          },
+          "watches": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/$defs/FormsWatchRecord"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "description": "Watches returned by list",
+            "title": "Watches"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "title": "FormsWatchesData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/FormsWatchesData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[FormsWatchesData]",
+    "type": "object"
+  }
+}

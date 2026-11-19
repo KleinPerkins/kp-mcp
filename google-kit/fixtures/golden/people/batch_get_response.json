@@ -1,0 +1,20 @@
+{
+  "responses": [
+    {
+      "requestedResourceName": "people/p001",
+      "person": {
+        "resourceName": "people/p001",
+        "names": [{"displayName": "Alice Smith", "familyName": "Smith", "givenName": "Alice"}],
+        "emailAddresses": [{"value": "alice@example.com", "type": "work", "formattedType": "Work"}]
+      }
+    },
+    {
+      "requestedResourceName": "people/p002",
+      "person": {
+        "resourceName": "people/p002",
+        "names": [{"displayName": "Bob Jones", "familyName": "Jones", "givenName": "Bob"}],
+        "emailAddresses": [{"value": "bob@example.com", "type": "work", "formattedType": "Work"}]
+      }
+    }
+  ]
+}

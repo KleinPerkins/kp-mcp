@@ -1,0 +1,102 @@
+"""Platform registrar wiring for widget-kit.
+
+Registers the widget-kit MCP server with Cursor, Codex, and Claude Code configs
+via the shared ``kp_mcp_bootstrap`` registrars. Configs contain ONLY the launch
+command + non-secret env — never tokens or credentials (R15/B6). All paths are
+caller-supplied for testability; tests pass ``tmp_path``.
+"""
+from __future__ import annotations
+
+import shutil
+import sys
+from pathlib import Path
+from typing import Any, Mapping
+
+from kp_mcp_bootstrap.registrars import ClaudeRegistrar, CodexRegistrar, CursorRegistrar
+from kp_mcp_bootstrap.registrars.base import ServerEntry
+from kp_mcp_bootstrap.registrars import Approval, PreparedOperation, RegistrationContext, RegistrationDefinition, Result, RegistrarError, ReasonCode
+from kp_mcp_bootstrap.registrars.consumers import kit_definition, registration_batch
+
+SERVER_NAME = "widget-kit"
+
+
+class _Cursor(CursorRegistrar):
+    SERVER_NAME = "widget-kit"
+
+
+class _Codex(CodexRegistrar):
+    SERVER_NAME = "widget-kit"
+
+
+class _Claude(ClaudeRegistrar):
+    SERVER_NAME = "widget-kit"
+
+
+def _default_binary() -> str:
+    """Resolve the absolute path to the widget-kit script in the active venv."""
+    found = shutil.which("widget-kit")
+    if found:
+        return found
+    return str(Path(sys.executable).parent / "widget-kit")
+
+
+def server_entry(binary_path: str | None = None, *, env: dict[str, str] | None = None) -> ServerEntry:
+    """Build the MCP ServerEntry for widget-kit (command + non-secret env only)."""
+    if env:
+        raise RegistrarError(ReasonCode.UNSUPPORTED_FIELD)
+    return ServerEntry(command=binary_path or _default_binary(), args=["mcp"], env=env or {})
+
+
+def default_platform_paths() -> dict[str, Path]:
+    """Return the real operator config paths. Tests MUST pass tmp_path instead."""
+    home = Path.home()
+    return {
+        "cursor": home / ".cursor" / "mcp.json",
+        "codex": home / ".codex" / "config.toml",
+        "claude": home / ".claude.json",
+    }
+
+
+def registrars(*, maintenance_validator=None):
+    """Return this kit's adapters for explicit owner context construction."""
+    return {"cursor": _Cursor(maintenance_validator=maintenance_validator), "codex": _Codex(maintenance_validator=maintenance_validator), "claude": _Claude(maintenance_validator=maintenance_validator)}
+
+
+def registration_definition(source_revision: str, binary_path: str | None = None, *, env=None) -> RegistrationDefinition:
+    """Build the stable kit identity and complete owned launch projection."""
+    return kit_definition(SERVER_NAME, source_revision, server_entry(binary_path, env=env))
+
+
+def register_all(
+    *, cursor_path: Path, codex_path: Path, claude_path: Path,
+    binary_path: str | None = None, env: dict[str, str] | None = None,
+    contexts: Mapping[str, RegistrationContext] | None = None,
+    prepared: Mapping[str, PreparedOperation] | None = None,
+    approvals: Mapping[str, Approval] | None = None,
+    maintenance_validator=None,
+    dry_run: bool = False,
+) -> dict[str, Result | str]:
+    """Preflight every host and apply only explicitly supplied operations."""
+    return registration_batch(
+        SERVER_NAME, registrars(maintenance_validator=maintenance_validator),
+        {"cursor": cursor_path, "codex": codex_path, "claude": claude_path},
+        server_entry(binary_path, env=env), contexts=contexts,
+        prepared=prepared, approvals=approvals, dry_run=dry_run,
+    )
+
+
+def bootstrap(
+    *, binary_path: str | None = None, env: dict[str, str] | None = None,
+    contexts: Mapping[str, RegistrationContext] | None = None,
+    prepared: Mapping[str, PreparedOperation] | None = None,
+    approvals: Mapping[str, Approval] | None = None,
+    maintenance_validator=None,
+    dry_run: bool = False,
+) -> dict[str, Any]:
+    """Register with explicit context, prepared bytes and exact approval."""
+    paths = default_platform_paths()
+    return register_all(
+        cursor_path=paths["cursor"], codex_path=paths["codex"], claude_path=paths["claude"],
+        binary_path=binary_path, env=env, contexts=contexts,
+        prepared=prepared, approvals=approvals, dry_run=dry_run, maintenance_validator=maintenance_validator,
+    )

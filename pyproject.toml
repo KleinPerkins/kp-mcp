@@ -1,0 +1,50 @@
+[project]
+name = "kp-mcp"
+version = "0.0.0"
+description = "KleinPerkins MCP utility-kit monorepo: shared engines and reference kits (google-kit is reference kit #1)."
+readme = "README.md"
+requires-python = ">=3.11"
+# The virtual root depends on every workspace member so a bare `uv sync`
+# (no flags) installs all workspace members editable. Members resolve via
+# [tool.uv.sources] below.
+#
+# R13 (installable-whole) status — decided in docs/dev/RELEASE.md:
+#   * Dev / CI: installable-whole via this virtual workspace root (`uv sync`).
+#   * Delivery: installable-whole WITHOUT an index via the immutable git-pin
+#     model (consumers pin each member to a tag ref; see RELEASE.md).
+#   * A pip-installable metapackage `kp-mcp` and standalone `pip install
+#     google-kit` from an index are index-dependent and are the kit #2
+#     graduation trigger (RELEASE.md "Publishing"). This root stays a virtual
+#     workspace root (`package = false`) until then.
+dependencies = [
+    "kp-mcp-bootstrap",
+    "kp-mcp-testkit",
+    "google-kit",
+    "snow-kit",
+    "widget-kit",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = ["kp-mcp-*", "*-kit"]
+
+[tool.uv.sources]
+kp-mcp-bootstrap = { workspace = true }
+kp-mcp-testkit = { workspace = true }
+google-kit = { workspace = true }
+snow-kit = { workspace = true }
+widget-kit = { workspace = true }
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
+pythonpath = ["."]
+
+# Default dev group: installed automatically by a bare `uv sync`, so the test
+# runner (pytest) and the CI YAML validator (pyyaml) are always available.
+[dependency-groups]
+dev = [
+    "pytest>=7",
+    "pyyaml>=6.0.3",
+]

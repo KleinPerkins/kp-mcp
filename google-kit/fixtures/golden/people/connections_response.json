@@ -1,0 +1,11 @@
+{
+  "connections": [
+    {
+      "resourceName": "people/p005",
+      "names": [{"displayName": "Eve Green", "familyName": "Green", "givenName": "Eve"}],
+      "emailAddresses": [{"value": "eve@example.com", "type": "home", "formattedType": "Home"}]
+    }
+  ],
+  "nextPageToken": "tok003",
+  "totalPeople": 1
+}

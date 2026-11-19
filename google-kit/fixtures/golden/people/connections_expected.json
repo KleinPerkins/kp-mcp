@@ -1,0 +1,10 @@
+{
+  "count": 1,
+  "connections": [
+    {
+      "resource_name": "people/p005",
+      "names": [{"display_name": "Eve Green", "family_name": "Green", "given_name": "Eve"}],
+      "email_addresses": [{"value": "eve@example.com", "type": "home", "formatted_type": "Home"}]
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "activeUsers": [
+    {"value": "3", "startTime": "2024-03-18T00:00:00Z", "endTime": "2024-03-25T00:00:00Z"}
+  ],
+  "totalExecutions": [
+    {"value": "42", "startTime": "2024-03-18T00:00:00Z", "endTime": "2024-03-25T00:00:00Z"}
+  ],
+  "failedExecutions": [
+    {"value": "1", "startTime": "2024-03-18T00:00:00Z", "endTime": "2024-03-25T00:00:00Z"}
+  ]
+}

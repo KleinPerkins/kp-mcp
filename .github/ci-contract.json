@@ -1,0 +1,91 @@
+{
+  "schema": "clean-successor-ci-contract/v1",
+  "repository": "KleinPerkins/kp-mcp",
+  "repository_id": 1460922143,
+  "shards": {
+    "bootstrap": [
+      [
+        "-m",
+        "pytest",
+        "-q",
+        "--strict-markers",
+        "kp-mcp-bootstrap/tests",
+        "kp-mcp-testkit/tests"
+      ]
+    ],
+    "google": [
+      [
+        "-m",
+        "pytest",
+        "-q",
+        "--strict-markers",
+        "google-kit/tests"
+      ]
+    ],
+    "snow": [
+      [
+        "-m",
+        "pytest",
+        "-q",
+        "--strict-markers",
+        "snow-kit/tests"
+      ]
+    ],
+    "widget": [
+      [
+        "-m",
+        "pytest",
+        "-q",
+        "--strict-markers",
+        "widget-kit/tests"
+      ]
+    ],
+    "workspace": [
+      [
+        "-m",
+        "pytest",
+        "-q",
+        "--strict-markers",
+        "tests",
+        "--ignore=tests/delivery"
+      ],
+      [
+        "-I",
+        "-B",
+        "scripts/check_workspace.py"
+      ]
+    ],
+    "delivery": [
+      [
+        "-I",
+        "-B",
+        "tests/delivery/test_local_review.py"
+      ],
+      [
+        "-I",
+        "-B",
+        "tests/delivery/test_create_review_pr.py"
+      ],
+      [
+        "-I",
+        "-B",
+        "tests/delivery/test_reviewer_app.py"
+      ],
+      [
+        "-I",
+        "-B",
+        "tests/delivery/test_ci.py"
+      ]
+    ]
+  },
+  "required_jobs": [
+    "bootstrap",
+    "google",
+    "snow",
+    "widget",
+    "workspace",
+    "delivery",
+    "ci-required"
+  ],
+  "activation": "prepared_only; review/account/App/admission/hosted qualification pending"
+}

@@ -1,0 +1,9 @@
+{
+  "id": "doc001",
+  "title": "My Report",
+  "mime_type": "application/vnd.google-apps.document",
+  "platform": "google_docs",
+  "content": "My Report\n\nThis is the report body.",
+  "fetch_method": "drive_export_html_stripped",
+  "web_url": "https://docs.google.com/document/d/doc001/edit"
+}

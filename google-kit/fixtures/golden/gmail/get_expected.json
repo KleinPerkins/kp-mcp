@@ -1,0 +1,10 @@
+{
+  "id": "msg001abc",
+  "thread_id": "thread001abc",
+  "snippet": "Hello Gmail test body content.",
+  "subject": "Test Subject",
+  "from_": "sender@example.com",
+  "date": "Mon, 15 Jan 2024 10:00:00 +0000",
+  "body": "Hello Gmail test body content.",
+  "label_ids": ["INBOX", "UNREAD"]
+}

@@ -1,0 +1,139 @@
+{
+  "description": "List tables in a database/schema with optional LIKE pattern. Use this for: catalog; tables.",
+  "inputSchema": {
+    "properties": {
+      "database": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Database"
+      },
+      "limit": {
+        "default": 100,
+        "maximum": 10000,
+        "minimum": 1,
+        "title": "Limit",
+        "type": "integer"
+      },
+      "pattern": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Pattern"
+      },
+      "schema": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Schema name.",
+        "title": "Schema"
+      }
+    },
+    "title": "CatalogListTablesInput",
+    "type": "object"
+  },
+  "name": "catalog_list_tables",
+  "outputSchema": {
+    "$defs": {
+      "CatalogRowsData": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "execution_time_ms": {
+            "title": "Execution Time Ms",
+            "type": "number"
+          },
+          "rows": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Rows",
+            "type": "array"
+          },
+          "truncated": {
+            "default": false,
+            "title": "Truncated",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "rows",
+          "count",
+          "execution_time_ms"
+        ],
+        "title": "CatalogRowsData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Per-operation metadata returned in the envelope.",
+        "properties": {
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/CatalogRowsData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[CatalogRowsData]",
+    "type": "object"
+  }
+}

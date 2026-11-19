@@ -1,0 +1,276 @@
+{
+  "description": "Create an embedded chart via batchUpdate/addChart.",
+  "inputSchema": {
+    "$defs": {
+      "SheetGridRange": {
+        "description": "Grid range for chart data sources (start inclusive, end exclusive row/col indices).",
+        "properties": {
+          "end_col": {
+            "title": "End Col",
+            "type": "integer"
+          },
+          "end_row": {
+            "title": "End Row",
+            "type": "integer"
+          },
+          "start_col": {
+            "title": "Start Col",
+            "type": "integer"
+          },
+          "start_row": {
+            "title": "Start Row",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "start_row",
+          "end_row",
+          "start_col",
+          "end_col"
+        ],
+        "title": "SheetGridRange",
+        "type": "object"
+      }
+    },
+    "description": "Input for ``sheets.chart``: create an embedded chart.",
+    "properties": {
+      "chart_type": {
+        "default": "bar",
+        "enum": [
+          "bar",
+          "column",
+          "line",
+          "area",
+          "pie",
+          "scatter",
+          "combo"
+        ],
+        "title": "Chart Type",
+        "type": "string"
+      },
+      "sheet_id": {
+        "title": "Sheet Id",
+        "type": "integer"
+      },
+      "spreadsheet_id": {
+        "title": "Spreadsheet Id",
+        "type": "string"
+      },
+      "stacked": {
+        "default": false,
+        "title": "Stacked",
+        "type": "boolean"
+      },
+      "title": {
+        "title": "Title",
+        "type": "string"
+      },
+      "x_range": {
+        "$ref": "#/$defs/SheetGridRange"
+      },
+      "y_ranges": {
+        "items": {
+          "$ref": "#/$defs/SheetGridRange"
+        },
+        "title": "Y Ranges",
+        "type": "array"
+      }
+    },
+    "required": [
+      "spreadsheet_id",
+      "title",
+      "sheet_id",
+      "x_range",
+      "y_ranges"
+    ],
+    "title": "SheetsChartInput",
+    "type": "object"
+  },
+  "name": "sheets_chart",
+  "outputSchema": {
+    "$defs": {
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      },
+      "SheetsChartData": {
+        "description": "Data payload for ``sheets.chart``.",
+        "properties": {
+          "chart_id": {
+            "title": "Chart Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "chart_id"
+        ],
+        "title": "SheetsChartData",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/SheetsChartData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[SheetsChartData]",
+    "type": "object"
+  }
+}

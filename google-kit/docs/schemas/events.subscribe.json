@@ -1,0 +1,239 @@
+{
+  "description": "Create a Workspace Events subscription (returns a long-running Operation).",
+  "inputSchema": {
+    "description": "Input for ``events.subscribe``: create a Workspace Events subscription.\n\nRequires an operator-provisioned Cloud Pub/Sub topic; \u00a77 covers Drive event\ntargets only.",
+    "properties": {
+      "event_types": {
+        "description": "List of Drive event type strings (CloudEvents format google.workspace.drive.RESOURCE.v3.ACTION), e.g. ['google.workspace.drive.file.v3.contentChanged']. Valid file actions: created, moved, contentChanged, deleted, trashed, untrashed, renamed. The event must match the target: a single-file target supports file-scoped events (e.g. contentChanged); container events (created/moved) require a folder or shared-drive target.",
+        "items": {
+          "type": "string"
+        },
+        "title": "Event Types",
+        "type": "array"
+      },
+      "payload_options": {
+        "anyOf": [
+          {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Optional payloadOptions object to control event payload shape.",
+        "title": "Payload Options"
+      },
+      "pubsub_topic": {
+        "description": "Fully-qualified Pub/Sub topic name, e.g. 'projects/<project>/topics/<topic>'.",
+        "title": "Pubsub Topic",
+        "type": "string"
+      },
+      "target_resource": {
+        "description": "Full resource name of the Drive target, e.g. a file '//drive.googleapis.com/files/<id>' or shared drive '//drive.googleapis.com/drives/<id>'.",
+        "title": "Target Resource",
+        "type": "string"
+      }
+    },
+    "required": [
+      "target_resource",
+      "event_types",
+      "pubsub_topic"
+    ],
+    "title": "EventsSubscribeInput",
+    "type": "object"
+  },
+  "name": "events_subscribe",
+  "outputSchema": {
+    "$defs": {
+      "EventsSubscribeData": {
+        "description": "Data payload for ``events.subscribe`` (long-running Operation).",
+        "properties": {
+          "done": {
+            "default": false,
+            "title": "Done",
+            "type": "boolean"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "title": "EventsSubscribeData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/EventsSubscribeData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[EventsSubscribeData]",
+    "type": "object"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "requests": [
+    {
+      "updateCells": {
+        "rows": [
+          {
+            "values": [
+              {
+                "pivotTable": {
+                  "source": {
+                    "sheetId": 0,
+                    "startRowIndex": 0,
+                    "endRowIndex": 10,
+                    "startColumnIndex": 0,
+                    "endColumnIndex": 3
+                  },
+                  "rows": [
+                    {"sourceColumnOffset": 0, "sortOrder": "ASCENDING", "showTotals": true}
+                  ],
+                  "columns": [
+                    {"sourceColumnOffset": 1, "sortOrder": "ASCENDING", "showTotals": true}
+                  ],
+                  "values": [
+                    {"sourceColumnOffset": 2, "summarizeFunction": "SUM"}
+                  ]
+                }
+              }
+            ]
+          }
+        ],
+        "start": {"sheetId": 1, "rowIndex": 0, "columnIndex": 0},
+        "fields": "pivotTable"
+      }
+    }
+  ]
+}

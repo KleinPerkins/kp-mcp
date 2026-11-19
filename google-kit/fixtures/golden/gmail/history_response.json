@@ -1,0 +1,24 @@
+{
+  "history": [
+    {
+      "id": "9001",
+      "messages": [
+        {"id": "msg001abc", "threadId": "thread001abc"}
+      ],
+      "messagesAdded": [
+        {"message": {"id": "msg001abc", "threadId": "thread001abc", "labelIds": ["INBOX"]}}
+      ]
+    },
+    {
+      "id": "9002",
+      "messages": [
+        {"id": "msg002def", "threadId": "thread002def"}
+      ],
+      "messagesAdded": [
+        {"message": {"id": "msg002def", "threadId": "thread002def", "labelIds": ["INBOX", "UNREAD"]}}
+      ]
+    }
+  ],
+  "historyId": "9999",
+  "nextPageToken": null
+}

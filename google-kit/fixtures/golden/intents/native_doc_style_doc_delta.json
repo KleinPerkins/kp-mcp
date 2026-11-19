@@ -1,0 +1,19 @@
+{
+  "accepted_source_commit": "10fd36075c9c50c18460eee1cf08a67f6fcb67f2",
+  "accepted_source_parent": "140959003cea1634811f691a742081419804133a",
+  "baseline_commit": "ae4c7c9346adcb1e1f549840a59d60e3814d9420",
+  "files": [
+    {
+      "after_sha256": "ddf7857c45b067398f9e1817d4a3644cec1c6e71117af6d2a0956ca0924f5feb",
+      "before_sha256": "014560e0890dbbef068f7f1648ee10a4ef83421d2e489b475ce7682c4e83d314",
+      "path": "INDEX.md"
+    },
+    {
+      "after_sha256": "bd0938780b687be72b46127b59fe3c42b834eb250e97524235627e50353a32fe",
+      "before_sha256": "a8b3399ce1da259f06b824b16810cf3bf72a86b58bee0261294247c0d9da28a9",
+      "path": "QUICKSTART.md"
+    }
+  ],
+  "schema": "kp-mcp/native-doc-style-compatibility-delta/v1",
+  "source_pull_request": 98
+}

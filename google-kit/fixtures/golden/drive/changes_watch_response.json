@@ -1,0 +1,6 @@
+{
+  "id": "channel-abc123",
+  "resourceId": "resource-xyz789",
+  "resourceUri": "https://www.googleapis.com/drive/v3/changes",
+  "expiration": "1735689600000"
+}

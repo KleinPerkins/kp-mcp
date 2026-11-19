@@ -1,0 +1,23 @@
+{
+  "files": [
+    {
+      "id": "doc001",
+      "name": "Project Plan",
+      "mimeType": "application/vnd.google-apps.document",
+      "modifiedTime": "2024-03-20T14:30:00.000Z",
+      "owners": [{"displayName": "Jane Doe", "emailAddress": "jane@example.com"}],
+      "webViewLink": "https://docs.google.com/document/d/doc001/edit",
+      "shared": true
+    },
+    {
+      "id": "sheet001",
+      "name": "Budget Sheet",
+      "mimeType": "application/vnd.google-apps.spreadsheet",
+      "modifiedTime": "2024-03-18T09:00:00.000Z",
+      "owners": [{"displayName": "Jane Doe", "emailAddress": "jane@example.com"}],
+      "webViewLink": "https://docs.google.com/spreadsheets/d/sheet001/edit",
+      "shared": false
+    }
+  ],
+  "nextPageToken": null
+}

@@ -1,0 +1,16 @@
+{
+  "permissions": [
+    {
+      "id": "perm001",
+      "type": "user",
+      "role": "owner",
+      "emailAddress": "owner@example.com",
+      "domain": null
+    },
+    {
+      "id": "perm002",
+      "type": "anyone",
+      "role": "reader"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "query": "fullText contains 'project' and trashed = false",
+  "count": 2,
+  "results": [
+    {
+      "id": "doc001",
+      "title": "Project Plan",
+      "type": "google_docs",
+      "modified": "2024-03-20",
+      "owners": ["Jane Doe"],
+      "url": "https://docs.google.com/document/d/doc001/edit",
+      "shared": true
+    },
+    {
+      "id": "sheet001",
+      "title": "Budget Sheet",
+      "type": "google_sheets",
+      "modified": "2024-03-18",
+      "owners": ["Jane Doe"],
+      "url": "https://docs.google.com/spreadsheets/d/sheet001/edit",
+      "shared": false
+    }
+  ],
+  "truncated": false
+}

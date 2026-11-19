@@ -1,0 +1,7 @@
+{
+  "labels": [
+    {"id": "INBOX", "name": "INBOX", "type": "system", "messagesTotal": 42, "messagesUnread": 3},
+    {"id": "SENT", "name": "SENT", "type": "system", "messagesTotal": 100, "messagesUnread": 0},
+    {"id": "Label_001", "name": "Work", "type": "user", "messagesTotal": 15, "messagesUnread": 1}
+  ]
+}

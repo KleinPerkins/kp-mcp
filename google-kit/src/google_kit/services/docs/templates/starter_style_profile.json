@@ -1,0 +1,123 @@
+{
+  "schema": 1,
+  "named_styles": {
+    "TITLE": {
+      "textStyle": {
+        "bold": true,
+        "fontSize": {
+          "magnitude": 26,
+          "unit": "PT"
+        },
+        "weightedFontFamily": {
+          "fontFamily": "Arial",
+          "weight": 400
+        }
+      }
+    },
+    "SUBTITLE": {
+      "textStyle": {
+        "fontSize": {
+          "magnitude": 15,
+          "unit": "PT"
+        },
+        "foregroundColor": {
+          "color": {
+            "rgbColor": {
+              "blue": 0.45,
+              "green": 0.45,
+              "red": 0.45
+            }
+          }
+        },
+        "weightedFontFamily": {
+          "fontFamily": "Arial",
+          "weight": 400
+        }
+      }
+    },
+    "HEADING_1": {
+      "paragraphStyle": {
+        "spaceAbove": {
+          "magnitude": 18,
+          "unit": "PT"
+        },
+        "spaceBelow": {
+          "magnitude": 6,
+          "unit": "PT"
+        }
+      },
+      "textStyle": {
+        "bold": true,
+        "fontSize": {
+          "magnitude": 20,
+          "unit": "PT"
+        },
+        "weightedFontFamily": {
+          "fontFamily": "Arial",
+          "weight": 400
+        }
+      }
+    },
+    "HEADING_2": {
+      "paragraphStyle": {
+        "spaceAbove": {
+          "magnitude": 14,
+          "unit": "PT"
+        },
+        "spaceBelow": {
+          "magnitude": 4,
+          "unit": "PT"
+        }
+      },
+      "textStyle": {
+        "bold": true,
+        "fontSize": {
+          "magnitude": 16,
+          "unit": "PT"
+        },
+        "weightedFontFamily": {
+          "fontFamily": "Arial",
+          "weight": 400
+        }
+      }
+    },
+    "NORMAL_TEXT": {
+      "paragraphStyle": {
+        "lineSpacing": 150
+      },
+      "textStyle": {
+        "fontSize": {
+          "magnitude": 11,
+          "unit": "PT"
+        },
+        "weightedFontFamily": {
+          "fontFamily": "Arial",
+          "weight": 400
+        }
+      }
+    }
+  },
+  "document_style": {
+    "documentFormat": {
+      "documentMode": "PAGES"
+    },
+    "marginBottom": {
+      "magnitude": 72,
+      "unit": "PT"
+    },
+    "marginLeft": {
+      "magnitude": 72,
+      "unit": "PT"
+    },
+    "marginRight": {
+      "magnitude": 72,
+      "unit": "PT"
+    },
+    "marginTop": {
+      "magnitude": 72,
+      "unit": "PT"
+    }
+  },
+  "template_doc_id": null,
+  "source_doc_id": null
+}

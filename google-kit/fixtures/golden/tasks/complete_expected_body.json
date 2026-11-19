@@ -1,0 +1,6 @@
+{
+  "id": "task001",
+  "kind": "tasks#task",
+  "status": "completed",
+  "title": "Buy milk"
+}

@@ -1,0 +1,8 @@
+{
+  "after_sha256": "a8b3399ce1da259f06b824b16810cf3bf72a86b58bee0261294247c0d9da28a9",
+  "baseline_commit": "ae4c7c9346adcb1e1f549840a59d60e3814d9420",
+  "before_sha256": "441f236740c07a116e0e12fdb9da1440cc8f40657ece3bff2274d8fc94342a8c",
+  "path": "QUICKSTART.md",
+  "reason": "Bootstrap 0.3.0 requires owner context and approved prepared operations; live writer qualification remains unavailable.",
+  "schema": "kp-mcp/doc-compatibility-delta/v1"
+}

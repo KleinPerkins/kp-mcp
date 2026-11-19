@@ -1,0 +1,40 @@
+"""Uniform output envelope for widget-kit ops (mirrors the kp-mcp pattern).
+
+Every core function returns ``OutputEnvelope[XxxData]`` so the CLI, MCP server,
+and docgen all see one stable shape: ``{data, warnings, meta}``.
+"""
+from __future__ import annotations
+
+import json
+from typing import Any, Generic, TypeVar
+
+from pydantic import BaseModel, Field
+
+T = TypeVar("T")
+
+
+class Meta(BaseModel):
+    """Per-operation metadata returned in the envelope."""
+
+    run_id: str = ""
+    op: str = ""
+    latency_ms: float | None = None
+
+
+class OutputEnvelope(BaseModel, Generic[T]):
+    """Uniform output envelope for all widget-kit operations."""
+
+    data: T
+    warnings: list[str] = Field(default_factory=list)
+    meta: Meta = Field(default_factory=Meta)
+
+
+def _json_default(obj: Any) -> Any:
+    if hasattr(obj, "model_dump"):
+        return obj.model_dump()
+    raise TypeError(f"Object of type {type(obj).__name__} is not JSON serializable")
+
+
+def stable_json(obj: Any) -> str:
+    """Serialize obj to JSON with sorted keys (deterministic output)."""
+    return json.dumps(obj, sort_keys=True, default=_json_default)

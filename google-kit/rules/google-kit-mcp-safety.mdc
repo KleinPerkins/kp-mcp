@@ -1,0 +1,72 @@
+---
+description: Safety guardrails for agents invoking google-kit via MCP. Load when using any google-kit MCP tool, when handling Google Workspace data via google-kit, or when writing or reviewing code that calls google-kit MCP tools.
+globs:
+alwaysApply: false
+---
+
+# google-kit MCP Safety Rule
+
+## Tool Postures and Confirmation Requirements
+
+Each google-kit MCP tool declares a posture. Agent behavior by posture:
+
+| Posture | Confirmation required | Retry on failure |
+|---------|----------------------|------------------|
+| `read` | Never | Yes (transient/quota) |
+| `write` | Before first mutation in session | Yes (transient/quota) |
+| `admin` | Always, before each call | No |
+| `destructive` | Always, before each call | Never |
+
+Never invoke a `destructive` or `admin` tool without explicit operator confirmation in the current turn.
+
+## Scope and Secret Hygiene
+
+- Never pass OAuth tokens, client secrets, or credentials as tool arguments. All authentication is handled server-side via the macOS Keychain.
+- Never log or display raw tool output that may contain email bodies, document content, or attendee lists in contexts visible to third parties.
+- Redaction is enforced server-side for logs/audit — do not attempt to re-emit raw payloads.
+
+## Run-ID Correlation
+
+Every tool call emits a `run_id` in the response `meta` field. Record it in any escalation or triage report. Use it to correlate CLI and MCP calls in the audit log.
+
+## Error Taxonomy and Triage
+
+Full triage runbook: [docs/dev/TRIAGE.md](../docs/dev/TRIAGE.md).
+
+| Error class | Agent action |
+|-------------|-------------|
+| `Transient` | Handled automatically by `execute_api_call` (max 4 attempts, exponential backoff); do not manually retry. Escalate if all attempts fail. |
+| `QuotaRateLimit` | Wait the indicated `retry_after` (default 60 s); retry once; escalate if still failing |
+| `Auth` | Stop; inform the operator that re-authentication is required (`google-kit auth login`) |
+| `Permission` | Stop; inform the operator and do NOT retry |
+| `NotFound` | Surface the error to the operator; do NOT retry |
+| `Validation` | Fix the input and retry once; if still failing, escalate |
+| `Unknown` | Escalate immediately; do NOT retry |
+
+## Destructive-Op Escalation Protocol
+
+For any `destructive`-posture tool (e.g. `tasks_delete`, `keep_delete`, `drive` delete operations):
+
+1. Display the exact operation and target IDs to the operator.
+2. Wait for explicit "yes, proceed" confirmation in the current turn.
+3. Execute at most once; never loop destructive ops without re-confirming.
+4. Record the `run_id` from the response for audit traceability.
+
+## Autonomous-Resolution vs Escalation
+
+An agent MAY autonomously:
+- Let `execute_api_call` handle `Transient` retries automatically (max 4 attempts); do not add an agent-level retry loop for `Transient`.
+- Retry `QuotaRateLimit` once after waiting the indicated `retry_after` (per table above).
+- Refresh tokens (the server handles this transparently via Keychain).
+- Fix validation errors by adjusting input within the declared schema.
+- Invoke read-only tools without confirmation.
+
+An agent MUST escalate (stop and request operator input) for:
+- Any `write`, `admin`, or `destructive` posture tool whose effect has not been confirmed.
+- Any `Auth` or `Unknown` error.
+- Any deviation from the expected output that would require non-trivial re-interpretation.
+- Any request to operate outside the declared OAuth scopes for a tool (do NOT call the tool; report the scope gap).
+
+## Non-macOS Platform Constraint
+
+Authenticated operations require macOS with the Keychain available. On non-macOS platforms, `Auth` errors are expected for all tools. Unauthenticated help/schema commands (`google-kit --help`, `google-kit <svc> --help`) work everywhere.

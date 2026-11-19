@@ -1,0 +1,52 @@
+{
+  "formId": "1FAIpQLSe_NONDETERMINISTIC",
+  "info": {
+    "title": "Customer Feedback",
+    "documentTitle": "Customer Feedback",
+    "description": "Please share your experience."
+  },
+  "revisionId": "00000001",
+  "responderUri": "https://docs.google.com/forms/d/1FAIpQLSe_NONDETERMINISTIC/viewform",
+  "items": [
+    {
+      "itemId": "item001",
+      "title": "What is your name?",
+      "questionItem": {
+        "question": {
+          "questionId": "qid001",
+          "required": false,
+          "textQuestion": {}
+        }
+      }
+    },
+    {
+      "itemId": "item002",
+      "title": "Rate your experience",
+      "questionItem": {
+        "question": {
+          "questionId": "qid002",
+          "required": true,
+          "scaleQuestion": {"low": 1, "high": 5, "lowLabel": "Poor", "highLabel": "Excellent"}
+        }
+      }
+    },
+    {
+      "itemId": "item003",
+      "title": "How did you hear about us?",
+      "questionItem": {
+        "question": {
+          "questionId": "qid003",
+          "required": false,
+          "choiceQuestion": {
+            "type": "RADIO",
+            "options": [
+              {"value": "Social media"},
+              {"value": "Friend"},
+              {"value": "Advertisement"}
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

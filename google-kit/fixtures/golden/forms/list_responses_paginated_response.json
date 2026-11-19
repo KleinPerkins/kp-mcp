@@ -1,0 +1,18 @@
+{
+  "responses": [
+    {
+      "responseId": "resp001",
+      "createTime": "2025-01-10T14:00:00Z",
+      "lastSubmittedTime": "2025-01-10T14:00:00Z",
+      "answers": {
+        "qid001": {
+          "questionId": "qid001",
+          "textAnswers": {
+            "answers": [{"value": "Alice"}]
+          }
+        }
+      }
+    }
+  ],
+  "nextPageToken": "token_page2"
+}

@@ -1,0 +1,30 @@
+{
+  "requests": [
+    {
+      "addConditionalFormatRule": {
+        "rule": {
+          "ranges": [
+            {
+              "sheetId": 0,
+              "startRowIndex": 1,
+              "endRowIndex": 10,
+              "startColumnIndex": 2,
+              "endColumnIndex": 3
+            }
+          ],
+          "booleanRule": {
+            "condition": {
+              "type": "NUMBER_GREATER",
+              "values": [{"userEnteredValue": "100"}]
+            },
+            "format": {
+              "backgroundColor": {"red": 1.0, "green": 0.0, "blue": 0.0},
+              "textFormat": {"bold": true}
+            }
+          }
+        },
+        "index": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "script_id": "script001",
+  "files": [
+    {
+      "name": "Code",
+      "type": "SERVER_JS",
+      "source": "function main() {\n  Logger.log('Hello');\n}"
+    },
+    {
+      "name": "appsscript",
+      "type": "JSON",
+      "source": "{\"timeZone\":\"America/New_York\",\"exceptionLogging\":\"STACKDRIVER\"}"
+    }
+  ]
+}

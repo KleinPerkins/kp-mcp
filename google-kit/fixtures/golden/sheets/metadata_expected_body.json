@@ -1,0 +1,14 @@
+{
+  "requests": [
+    {
+      "createDeveloperMetadata": {
+        "developerMetadata": {
+          "metadataKey": "project",
+          "metadataValue": "alpha",
+          "visibility": "DOCUMENT",
+          "location": {"spreadsheet": true}
+        }
+      }
+    }
+  ]
+}

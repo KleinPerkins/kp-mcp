@@ -1,0 +1,284 @@
+{
+  "description": "List (or search) Gmail threads.",
+  "inputSchema": {
+    "description": "Input for ``gmail.threads``: list (or search) Gmail threads.\n\nCalls ``users.threads.list``.  Providing ``q`` makes this op behave as a\nthread-level search using Gmail query syntax, so a single op covers both\nthe threads.list and threads.list(query) capabilities.",
+    "properties": {
+      "label_ids": {
+        "anyOf": [
+          {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Label IDs to filter threads by",
+        "title": "Label Ids"
+      },
+      "max_results": {
+        "default": 25,
+        "description": "Maximum number of threads to return",
+        "maximum": 500,
+        "minimum": 1,
+        "title": "Max Results",
+        "type": "integer"
+      },
+      "page_token": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Page token for continuation (from a prior page.next_page_token)",
+        "title": "Page Token"
+      },
+      "q": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Gmail search query filter (e.g. 'from:boss@example.com')",
+        "title": "Q"
+      }
+    },
+    "title": "GmailThreadsInput",
+    "type": "object"
+  },
+  "name": "gmail_threads",
+  "outputSchema": {
+    "$defs": {
+      "GmailThreadRef": {
+        "description": "A minimal thread reference as returned by ``users.threads.list``.",
+        "properties": {
+          "history_id": {
+            "default": "",
+            "description": "History ID of the thread",
+            "title": "History Id",
+            "type": "string"
+          },
+          "id": {
+            "description": "Thread ID",
+            "title": "Id",
+            "type": "string"
+          },
+          "snippet": {
+            "default": "",
+            "description": "Short snippet of the thread's latest message",
+            "title": "Snippet",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "GmailThreadRef",
+        "type": "object"
+      },
+      "GmailThreadsData": {
+        "description": "Data payload for ``gmail.threads``.",
+        "properties": {
+          "count": {
+            "description": "Number of threads returned on this page",
+            "title": "Count",
+            "type": "integer"
+          },
+          "threads": {
+            "description": "Thread references (id + snippet + history_id)",
+            "items": {
+              "$ref": "#/$defs/GmailThreadRef"
+            },
+            "title": "Threads",
+            "type": "array"
+          }
+        },
+        "required": [
+          "count",
+          "threads"
+        ],
+        "title": "GmailThreadsData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/GmailThreadsData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[GmailThreadsData]",
+    "type": "object"
+  }
+}

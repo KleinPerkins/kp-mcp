@@ -1,0 +1,17 @@
+{
+  "subscriptions": [
+    {
+      "name": "subscriptions/sub001",
+      "targetResource": "//drive.googleapis.com/files/file001",
+      "eventTypes": ["google.workspace.drive.file.v3.contentChanged"],
+      "state": "ACTIVE"
+    },
+    {
+      "name": "subscriptions/sub002",
+      "targetResource": "//drive.googleapis.com/files/file002",
+      "eventTypes": ["google.workspace.drive.file.v3.renamed"],
+      "state": "ACTIVE"
+    }
+  ],
+  "nextPageToken": "tok_next_page"
+}

@@ -1,0 +1,48 @@
+{
+  "requests": [
+    {
+      "updateDocumentStyle": {
+        "documentStyle": {
+          "marginTop": {"magnitude": 72, "unit": "PT"},
+          "marginBottom": {"magnitude": 72, "unit": "PT"},
+          "marginLeft": {"magnitude": 72, "unit": "PT"},
+          "marginRight": {"magnitude": 72, "unit": "PT"}
+        },
+        "fields": "marginTop,marginBottom,marginLeft,marginRight"
+      }
+    },
+    {
+      "updateParagraphStyle": {
+        "range": {"startIndex": 1, "endIndex": 8},
+        "paragraphStyle": {
+          "namedStyleType": "HEADING_1",
+          "lineSpacing": 150
+        },
+        "fields": "namedStyleType,lineSpacing"
+      }
+    },
+    {
+      "updateTextStyle": {
+        "range": {"startIndex": 1, "endIndex": 7},
+        "textStyle": {
+          "bold": true,
+          "fontSize": {"magnitude": 20, "unit": "PT"},
+          "weightedFontFamily": {
+            "fontFamily": "Arial",
+            "weight": 400
+          }
+        },
+        "fields": "bold,fontSize,weightedFontFamily"
+      }
+    },
+    {
+      "updateParagraphStyle": {
+        "range": {"startIndex": 8, "endIndex": 19},
+        "paragraphStyle": {
+          "lineSpacing": 150
+        },
+        "fields": "lineSpacing"
+      }
+    }
+  ]
+}

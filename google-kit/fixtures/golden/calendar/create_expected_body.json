@@ -1,0 +1,12 @@
+{
+  "attendees": [{"email": "alice@example.com"}],
+  "conferenceData": {
+    "createRequest": {
+      "conferenceSolutionKey": {"type": "hangoutsMeet"},
+      "requestId": "test-req-001"
+    }
+  },
+  "end": {"dateTime": "2026-06-20T11:00:00Z", "timeZone": "America/New_York"},
+  "start": {"dateTime": "2026-06-20T10:00:00Z", "timeZone": "America/New_York"},
+  "summary": "Team Meeting"
+}

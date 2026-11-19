@@ -1,0 +1,94 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.python-version
+
+# Test / type / lint caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# uv.lock is intentionally tracked for reproducibility.
+
+# OS / editor
+.DS_Store
+*.swp
+
+# === SECRETS — never commit (R15) ===
+*token*.json
+# Allow harmless test fixtures whose names contain "token" (e.g. drive
+# getStartPageToken responses). The broad *token*.json rule above is intended
+# for real OAuth artifacts; golden fixtures under tests are safe to track.
+!**/fixtures/golden/**/*token*.json
+client_secret*.json
+*client-secret*.json
+credentials*.json
+*.pem
+*.key
+*.p12
+*.keychain
+*.keychain-db
+.env
+.env.*
+secrets/
+**/data/google-auth/
+*.cookies.json
+session-*.json
+
+# === Local runtime artifacts (may contain real data) ===
+*.audit.jsonl
+audit/
+run-artifacts/
+*.local.toml
+*.local.json
+.otel/
+metrics-local/
+**/doc-styles/
+
+# BEGIN KleinPerkins/dev baseline (managed by KleinPerkins/dev; do not hand-edit — see _ops/baseline/README.md in KleinPerkins/dev)
+# secrets / credentials — never commit these
+.env
+.env.*
+*.env
+!.env.example
+!.env.sample
+!.env.template
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.kdbx
+id_rsa*
+id_dsa*
+id_ed25519*
+.netrc
+.pgpass
+credentials
+credentials.*
+service-account*.json
+
+# machine-local continual-learning memory — never commit
+agent-learnings.md
+
+# OS / editor runtime cruft
+.DS_Store
+._*
+*.swp
+# END KleinPerkins/dev baseline
+
+# Private discovery output is never source publication input.
+/docs/discovery/caller_matrix.json
+/docs/discovery/CALLER-MATRIX.md
+/docs/discovery/legacy_surface.json
+/docs/migration/caller_mapping.json

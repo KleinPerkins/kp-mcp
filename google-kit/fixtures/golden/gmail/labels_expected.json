@@ -1,0 +1,8 @@
+{
+  "count": 3,
+  "labels": [
+    {"id": "INBOX", "name": "INBOX", "label_type": "system", "extra": {}},
+    {"id": "SENT", "name": "SENT", "label_type": "system", "extra": {}},
+    {"id": "Label_001", "name": "Work", "label_type": "user", "extra": {}}
+  ]
+}

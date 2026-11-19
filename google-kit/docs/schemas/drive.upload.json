@@ -1,0 +1,306 @@
+{
+  "description": "Upload a file to Google Drive via a resumable upload (private by default).",
+  "inputSchema": {
+    "description": "Input for ``drive.upload``: upload a local file to Google Drive.\n\nProvide EXACTLY ONE source of content:\n  - ``path``: an absolute/relative path to a local file. The file is\n    streamed from disk (resumable ``MediaFileUpload``) \u2014 any size, any\n    binary content. ``filename`` defaults to the path's basename.\n  - ``content_b64``: base64-encoded inline bytes (small files only; a single\n    tool call cannot carry large base64 payloads \u2014 prefer ``path``). The\n    decoded payload is capped at 10 MiB (``MAX_INLINE_UPLOAD_BYTES``); larger\n    content must use ``path``.\n\nMIME type resolution: explicit ``mime_type`` wins; otherwise it is guessed\nfrom ``path``/``filename`` extension; otherwise ``application/octet-stream``.\n\nSharing is PRIVATE by default (``share=\"private\"`` makes no permission call \u2014\nthe file stays owner-private). Pass ``share=\"anyone_reader\"`` to explicitly\ngrant a world-readable (``type=anyone, role=reader``) permission; this is\nrefused unless ``GOOGLE_KIT_ENABLE_DRIVE_PUBLIC_SHARE=1``. A ``path`` source\nmust also resolve within ``GOOGLE_KIT_UPLOAD_ROOT`` (default: home).\n\nWhen ``folder_id`` is absent, the file is placed in a folder named\n``folder_name`` (created if it does not exist; default: google-kit-uploads).",
+    "properties": {
+      "content_b64": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Base64-encoded inline content. Mutually exclusive with path.",
+        "title": "Content B64"
+      },
+      "filename": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Display/MIME basename; defaults to os.path.basename(path) when path is given.",
+        "title": "Filename"
+      },
+      "folder_id": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Folder Id"
+      },
+      "folder_name": {
+        "default": "google-kit-uploads",
+        "title": "Folder Name",
+        "type": "string"
+      },
+      "mime_type": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Mime Type"
+      },
+      "path": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Local file path to stream from disk (resumable). Mutually exclusive with content_b64.",
+        "title": "Path"
+      },
+      "share": {
+        "default": "private",
+        "enum": [
+          "private",
+          "anyone_reader"
+        ],
+        "title": "Share",
+        "type": "string"
+      },
+      "title": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "title": "Title"
+      }
+    },
+    "title": "DriveUploadInput",
+    "type": "object"
+  },
+  "name": "drive_upload",
+  "outputSchema": {
+    "$defs": {
+      "DriveUploadData": {
+        "description": "Data payload for ``drive.upload``.",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "mime_type": {
+            "title": "Mime Type",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "shared": {
+            "default": false,
+            "title": "Shared",
+            "type": "boolean"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "name",
+          "mime_type"
+        ],
+        "title": "DriveUploadData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Operation metadata returned in the output envelope.\n\nCarries the architecture-brief \u00a78 observability envelope. The base fields\n(``run_id``, ``op``, ``latency_ms``) are populated by every op; the\nrouting/composition fields (``api``..``saga_compensated``) are populated by\ncapabilities that go through the router (thick reads) or a recipe (saga).\nLegacy 1:1 ops leave the extended fields at their defaults \u2014 they are all\noptional and strictly additive (no existing op needs to change).",
+        "properties": {
+          "api": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Api"
+          },
+          "calls": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Calls"
+          },
+          "fallback_used": {
+            "default": false,
+            "title": "Fallback Used",
+            "type": "boolean"
+          },
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "method": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Method"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "quota_units_est": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Quota Units Est"
+          },
+          "recipe_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Recipe Id"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          },
+          "saga_compensated": {
+            "default": false,
+            "title": "Saga Compensated",
+            "type": "boolean"
+          },
+          "scopes_used": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Scopes Used",
+            "type": "array"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      },
+      "PageInfo": {
+        "description": "Pagination metadata returned in the output envelope.",
+        "properties": {
+          "next_page_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Next Page Token"
+          },
+          "total_items": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Total Items"
+          }
+        },
+        "title": "PageInfo",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/DriveUploadData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "page": {
+        "anyOf": [
+          {
+            "$ref": "#/$defs/PageInfo"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[DriveUploadData]",
+    "type": "object"
+  }
+}

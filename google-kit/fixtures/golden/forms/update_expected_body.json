@@ -1,0 +1,13 @@
+{
+  "requests": [
+    {
+      "updateFormInfo": {
+        "info": {
+          "title": "Updated Survey Title",
+          "description": "Updated description."
+        },
+        "updateMask": "title,description"
+      }
+    }
+  ]
+}

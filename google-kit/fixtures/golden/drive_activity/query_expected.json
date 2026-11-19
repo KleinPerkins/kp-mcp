@@ -1,0 +1,67 @@
+{
+  "activities": [
+    {
+      "primaryActionDetail": {
+        "edit": {}
+      },
+      "actors": [
+        {
+          "user": {
+            "knownUser": {
+              "personName": "people/12345678901234567890",
+              "isCurrentUser": true
+            }
+          }
+        }
+      ],
+      "targets": [
+        {
+          "driveItem": {
+            "name": "items/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+            "title": "Project Plan",
+            "mimeType": "application/vnd.google-apps.document",
+            "driveFile": {}
+          }
+        }
+      ],
+      "timestamp": "2024-01-15T10:30:00.000Z"
+    },
+    {
+      "primaryActionDetail": {
+        "permissionChange": {
+          "addedPermissions": [
+            {
+              "role": "reader",
+              "user": {
+                "knownUser": {
+                  "personName": "people/98765432109876543210"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "actors": [
+        {
+          "user": {
+            "knownUser": {
+              "personName": "people/12345678901234567890",
+              "isCurrentUser": true
+            }
+          }
+        }
+      ],
+      "targets": [
+        {
+          "driveItem": {
+            "name": "items/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgVE2upms",
+            "title": "Project Plan",
+            "mimeType": "application/vnd.google-apps.document",
+            "driveFile": {}
+          }
+        }
+      ],
+      "timestamp": "2024-01-16T09:00:00.000Z"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+"""Shared test fixtures for __KIT_NAME__."""
+from __future__ import annotations
+
+import pytest
+
+
+class FakeBackend:
+    """In-memory backend stand-in for the sample ``items`` service.
+
+    Replace with golden-fixture-driven mocks of your real domain API; the only
+    contract the core functions depend on is ``.list(query, limit)`` and
+    ``.create(name)``.
+    """
+
+    def __init__(self, items: list[dict] | None = None) -> None:
+        self._items = list(items or [])
+
+    def list(self, *, query: str = "", limit: int = 10) -> list[dict]:
+        rows = [r for r in self._items if query.lower() in r["name"].lower()]
+        return rows[:limit]
+
+    def create(self, *, name: str) -> dict:
+        rec = {"id": f"id-{len(self._items) + 1}", "name": name}
+        self._items.append(rec)
+        return rec
+
+
+@pytest.fixture
+def backend() -> FakeBackend:
+    return FakeBackend([{"id": "id-1", "name": "alpha"}, {"id": "id-2", "name": "beta"}])

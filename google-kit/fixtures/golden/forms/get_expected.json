@@ -1,0 +1,25 @@
+{
+  "title": "Customer Feedback",
+  "description": "Please share your experience.",
+  "item_count": 3,
+  "items": [
+    {
+      "title": "What is your name?",
+      "item_type": "short_text",
+      "required": false,
+      "extra": {}
+    },
+    {
+      "title": "Rate your experience",
+      "item_type": "scale",
+      "required": true,
+      "extra": {}
+    },
+    {
+      "title": "How did you hear about us?",
+      "item_type": "multiple_choice",
+      "required": false,
+      "extra": {}
+    }
+  ]
+}

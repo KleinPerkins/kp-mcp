@@ -1,0 +1,7 @@
+{
+  "targetResource": "//drive.googleapis.com/files/file001",
+  "eventTypes": ["google.workspace.drive.file.v3.contentChanged"],
+  "notificationEndpoint": {
+    "pubsubTopic": "projects/my-project/topics/drive-events"
+  }
+}

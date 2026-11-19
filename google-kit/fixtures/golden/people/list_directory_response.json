@@ -1,0 +1,10 @@
+{
+  "people": [
+    {
+      "resourceName": "people/p004",
+      "names": [{"displayName": "Dave Brown", "familyName": "Brown", "givenName": "Dave"}],
+      "emailAddresses": [{"value": "dave@example.com", "type": "work", "formattedType": "Work"}]
+    }
+  ],
+  "nextPageToken": "tok002"
+}

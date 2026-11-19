@@ -1,0 +1,192 @@
+{
+  "description": "Inspect current-role Snowflake grants and optional spec context for write access. Use this for: grants; permissions; write access. Inspect table metadata before requesting data or derived statistics.",
+  "inputSchema": {
+    "properties": {
+      "email": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Optional email for spec role exploration.",
+        "title": "Email"
+      },
+      "object_name": {
+        "title": "Object Name",
+        "type": "string"
+      },
+      "operation": {
+        "default": "INSERT",
+        "description": "Write operation to check, e.g. INSERT or CREATE TABLE.",
+        "title": "Operation",
+        "type": "string"
+      },
+      "role": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "null"
+          }
+        ],
+        "default": null,
+        "description": "Role to use for spec explanation filtering.",
+        "title": "Role"
+      }
+    },
+    "required": [
+      "object_name"
+    ],
+    "title": "CatalogCheckWriteAccessInput",
+    "type": "object"
+  },
+  "name": "catalog_check_write_access",
+  "outputSchema": {
+    "$defs": {
+      "CatalogCheckWriteAccessData": {
+        "properties": {
+          "active_role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Role"
+          },
+          "has_snowflake_grant": {
+            "title": "Has Snowflake Grant",
+            "type": "boolean"
+          },
+          "live_grants_decisive": {
+            "title": "Live Grants Decisive",
+            "type": "boolean"
+          },
+          "matching_grants": {
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "title": "Matching Grants",
+            "type": "array"
+          },
+          "object_name": {
+            "title": "Object Name",
+            "type": "string"
+          },
+          "operation": {
+            "title": "Operation",
+            "type": "string"
+          },
+          "required_privilege": {
+            "title": "Required Privilege",
+            "type": "string"
+          },
+          "roles_for_email": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Roles For Email",
+            "type": "array"
+          },
+          "spec_available": {
+            "title": "Spec Available",
+            "type": "boolean"
+          },
+          "spec_matches": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Spec Matches",
+            "type": "array"
+          },
+          "spec_revision": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Spec Revision"
+          }
+        },
+        "required": [
+          "object_name",
+          "operation",
+          "required_privilege",
+          "active_role",
+          "has_snowflake_grant",
+          "matching_grants",
+          "live_grants_decisive",
+          "spec_available",
+          "spec_revision",
+          "spec_matches",
+          "roles_for_email"
+        ],
+        "title": "CatalogCheckWriteAccessData",
+        "type": "object"
+      },
+      "Meta": {
+        "description": "Per-operation metadata returned in the envelope.",
+        "properties": {
+          "latency_ms": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Latency Ms"
+          },
+          "op": {
+            "default": "",
+            "title": "Op",
+            "type": "string"
+          },
+          "run_id": {
+            "default": "",
+            "title": "Run Id",
+            "type": "string"
+          }
+        },
+        "title": "Meta",
+        "type": "object"
+      }
+    },
+    "properties": {
+      "data": {
+        "$ref": "#/$defs/CatalogCheckWriteAccessData"
+      },
+      "meta": {
+        "$ref": "#/$defs/Meta"
+      },
+      "warnings": {
+        "items": {
+          "type": "string"
+        },
+        "title": "Warnings",
+        "type": "array"
+      }
+    },
+    "required": [
+      "data"
+    ],
+    "title": "OutputEnvelope[CatalogCheckWriteAccessData]",
+    "type": "object"
+  }
+}

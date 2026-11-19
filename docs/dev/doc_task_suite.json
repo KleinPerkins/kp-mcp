@@ -1,0 +1,260 @@
+[
+  {
+    "id": "install-bootstrap",
+    "context_paths": ["google-kit/docs/QUICKSTART.md"],
+    "task": "Explain installation and the qualified owner registration workflow. Source 0.3.0 has no live writer qualification, so live registration is blocked. Do not run bootstrap as an implicit write.",
+    "success_criteria": "After separate native qualification and exact operation approval, verify the owner workflow registered the Cursor entry and authentication remains separately unverified. A bounded refusal or source/fixture test does not pass this live doc-loop task."
+  },
+  {
+    "id": "auth-prerequisites",
+    "context_paths": ["google-kit/docs/QUICKSTART.md"],
+    "task": "Before running 'google-kit auth login', what prerequisites must be in the Keychain? Provide the exact 'security add-generic-password' commands to import client_id and client_secret from a downloaded client_secret.json.",
+    "success_criteria": "Agent produces exact 'security add-generic-password -s google-kit -a default:client_id -w <value>' and '-a default:client_secret -w <value>' commands without reading source code."
+  },
+  {
+    "id": "auth-login",
+    "context_paths": ["google-kit/docs/QUICKSTART.md"],
+    "task": "Run 'google-kit auth login'. Describe the full flow: what happens in the browser, what gets stored, and what the success output looks like.",
+    "success_criteria": "Agent identifies: PKCE loopback OAuth opens browser; tokens stored in macOS Keychain under profile 'default'; success output shows 'Login successful' with keys listed."
+  },
+  {
+    "id": "auth-status",
+    "context_paths": ["google-kit/docs/QUICKSTART.md"],
+    "task": "How do you verify that google-kit is authenticated? Show the command and interpret the output when logged in vs not logged in.",
+    "success_criteria": "Agent shows 'google-kit auth status'; identifies exit code 0 when access_token or refresh_token present, exit 1 with hint when absent."
+  },
+  {
+    "id": "auth-logout",
+    "context_paths": ["google-kit/docs/QUICKSTART.md"],
+    "task": "Log out of google-kit: remove tokens but keep client credentials. Then show how to remove everything including the client secret.",
+    "success_criteria": "Agent shows 'google-kit auth logout' (removes tokens) and 'google-kit auth logout --all' (removes client_id and client_secret too)."
+  },
+  {
+    "id": "auth-login-force",
+    "context_paths": ["google-kit/docs/QUICKSTART.md"],
+    "task": "You want to force re-consent even though a valid token exists. What command replaces the legacy 'refresh_google_oauth.py --force'?",
+    "success_criteria": "Agent shows 'google-kit auth login --force'."
+  },
+  {
+    "id": "auth-headless",
+    "context_paths": ["google-kit/docs/QUICKSTART.md"],
+    "task": "You are on a headless server (no browser). How do you authenticate google-kit?",
+    "success_criteria": "Agent shows 'google-kit auth login --headless'; explains the auth URL is printed to stderr for the operator to visit on another machine."
+  },
+  {
+    "id": "drive-fetch-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Fetch the content of a Google Doc with URL 'https://docs.google.com/document/d/1abc/edit'. Show the exact CLI command and the shape of the JSON output.",
+    "success_criteria": "Agent shows 'google-kit drive fetch --url-or-id https://docs.google.com/document/d/1abc/edit'; output envelope has {status, op, data:{...}}."
+  },
+  {
+    "id": "drive-search-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Search Drive for files whose name contains 'Q1 Report'. Show the CLI command and the MCP tool call (tool name + required argument).",
+    "success_criteria": "Agent shows CLI 'google-kit drive search --query \"name contains \\'Q1 Report\\'\"' and MCP tool 'drive_search' with argument {query: ...}."
+  },
+  {
+    "id": "drive-upload-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Upload a local file '/tmp/report.pdf' to Drive and make it publicly readable. Show the exact CLI command.",
+    "success_criteria": "Agent shows 'google-kit drive upload --file /tmp/report.pdf'; notes posture is 'write' and output includes {id, name, url, mimeType}."
+  },
+  {
+    "id": "drive-create-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Create a blank Google Sheet in Drive titled 'Budget 2026'. Show the CLI command.",
+    "success_criteria": "Agent shows 'google-kit drive create --title \"Budget 2026\" --type sheet' (or equivalent from the card)."
+  },
+  {
+    "id": "docs-from-markdown-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Convert a local Markdown file '/tmp/spec.md' into a Google Doc. Show the CLI command and explain the formatting contract preserved from the legacy md-to-google-doc tool.",
+    "success_criteria": "Agent shows 'google-kit docs from-markdown --file /tmp/spec.md'; mentions formatting: 1-inch margins, H1 20pt, body 11pt Arial."
+  },
+  {
+    "id": "gmail-list-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "List the 10 most recent Gmail threads with label INBOX. Show the CLI command and the MCP tool name.",
+    "success_criteria": "Agent shows 'google-kit gmail list --max-results 10 --label-ids INBOX' (or equivalent); MCP tool 'gmail_list'."
+  },
+  {
+    "id": "gmail-get-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Retrieve the full content of Gmail thread ID 'abc123'. Note any behavior difference from the legacy script regarding body length.",
+    "success_criteria": "Agent shows 'google-kit gmail get --thread-id abc123'; mentions body truncated at 500 chars in text mode (BD-8)."
+  },
+  {
+    "id": "gmail-search-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Search Gmail for threads matching 'from:boss@example.com subject:budget'. Show the CLI command and explain the payload difference vs gmail list.",
+    "success_criteria": "Agent shows 'google-kit gmail search --query \"from:boss@example.com subject:budget\"'; explains search returns id+snippet+historyId only (lighter than list)."
+  },
+  {
+    "id": "gmail-profile-mcp",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Call the gmail.profile MCP tool to get the authenticated user's profile. Show the MCP tool name and required arguments.",
+    "success_criteria": "Agent shows MCP tool 'gmail_profile'; no required arguments (userId='me' implicit)."
+  },
+  {
+    "id": "calendar-list-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "List calendar events for the next 7 days. Show the CLI command.",
+    "success_criteria": "Agent shows 'google-kit calendar list --days 7' (or per card example)."
+  },
+  {
+    "id": "calendar-create-mcp",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Create a calendar event via MCP: 'Team Standup' on 2026-07-01 at 09:00 for 30 minutes with a Meet link. Show the tool name and full argument object.",
+    "success_criteria": "Agent shows MCP tool 'calendar_create' with {summary: 'Team Standup', start: '2026-07-01T09:00:00', duration: 30, meet: true}."
+  },
+  {
+    "id": "calendar-freebusy-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Check free/busy availability for alice@example.com and bob@example.com from 09:00 to 17:00 on 2026-07-01. Show the CLI command.",
+    "success_criteria": "Agent shows 'google-kit calendar freebusy --emails alice@example.com,bob@example.com --start 2026-07-01T09:00:00 --end 2026-07-01T17:00:00' (or equivalent)."
+  },
+  {
+    "id": "calendar-delete-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Delete calendar event with ID 'evt123'. What posture is this op, and what confirmation is required before proceeding?",
+    "success_criteria": "Agent shows 'google-kit calendar delete evt123'; identifies posture 'destructive'; states confirmation must be obtained before each call."
+  },
+  {
+    "id": "sheets-read-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Read cells A1:C10 from the sheet named 'Data' in a spreadsheet with ID 'sheet123'. Show the CLI command.",
+    "success_criteria": "Agent shows 'google-kit sheets read --spreadsheet-id sheet123 --range \"Data!A1:C10\"' (or per card)."
+  },
+  {
+    "id": "sheets-write-mcp",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Write the values [['Name','Score'],['Alice','95']] to range A1:B2 in spreadsheet 'sheet123' via MCP. Show the tool name and argument object.",
+    "success_criteria": "Agent shows MCP tool 'sheets_write' with {spreadsheet_id: 'sheet123', range: 'A1:B2', values: [['Name','Score'],['Alice','95']]}."
+  },
+  {
+    "id": "sheets-create-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Create a new Google Spreadsheet titled 'Tracker 2026'. Show the CLI command.",
+    "success_criteria": "Agent shows 'google-kit sheets create --title \"Tracker 2026\"' (or per card)."
+  },
+  {
+    "id": "slides-create-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Create a new Google Slides presentation titled 'Q2 Review'. Show the CLI command and MCP tool name.",
+    "success_criteria": "Agent shows 'google-kit slides create --title \"Q2 Review\"'; MCP tool 'slides_create'."
+  },
+  {
+    "id": "slides-add-slide-mcp",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Add a blank slide to presentation 'prs123' via MCP. Show the tool name and required arguments.",
+    "success_criteria": "Agent shows MCP tool 'slides_add_slide' with {presentation_id: 'prs123'} (plus any optional layout)."
+  },
+  {
+    "id": "forms-create-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Create a new Google Form titled 'Employee Survey'. Show the CLI command.",
+    "success_criteria": "Agent shows 'google-kit forms create --title \"Employee Survey\"' (or per card)."
+  },
+  {
+    "id": "forms-list-responses-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "List all responses to Google Form with ID 'form123'. Show the CLI command.",
+    "success_criteria": "Agent shows 'google-kit forms list-responses --form-id form123' (or per card)."
+  },
+  {
+    "id": "tasks-list-lists-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "List all Google Tasks task lists. Show the CLI command and MCP tool name.",
+    "success_criteria": "Agent shows 'google-kit tasks list-lists'; MCP tool 'tasks_list_lists'."
+  },
+  {
+    "id": "tasks-create-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Create a task titled 'Review PR' due 2026-07-15 in tasklist '@default'. Show the CLI command and explain due date normalization.",
+    "success_criteria": "Agent shows 'google-kit tasks create --tasklist @default --title \"Review PR\" --due 2026-07-15'; explains due date normalized to T00:00:00.000Z."
+  },
+  {
+    "id": "tasks-delete-mcp",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Delete task 'task456' from tasklist 'list789' via MCP. What posture is this? What confirmation steps does the safety rule require?",
+    "success_criteria": "Agent identifies posture 'destructive'; shows MCP tool 'tasks_delete' with {task_id: 'task456', tasklist_id: 'list789'}; states confirmation required before each call."
+  },
+  {
+    "id": "keep-create-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Create a Google Keep note titled 'Meeting Notes' with body text. Show the CLI command and note any availability risk.",
+    "success_criteria": "Agent shows 'google-kit keep create --title \"Meeting Notes\" --text \"...\"'; notes Keep requires Google Workspace + domain admin (BD-6)."
+  },
+  {
+    "id": "keep-delete-cli",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "Delete Keep note 'note123'. What posture is this and what happens on 403/404?",
+    "success_criteria": "Agent shows 'google-kit keep delete note123'; identifies 'destructive' posture; states 403/404 surfaces as Permission/NotFound error respectively."
+  },
+  {
+    "id": "add-capability",
+    "context_paths": ["docs/dev/SERVICE-PATTERN.md"],
+    "task": "Add a new read operation 'myservice.list' to google-kit. Walk through every file you create or edit, the exact core function signature, how to register it, how to generate its doc card, and the verification commands.",
+    "success_criteria": "Agent creates: services/myservice/__init__.py (register OpSpec), models.py (input/output), core.py (function with execute_api_call); runs 'uv run python -m google_kit.docgen_gen'; runs 'uv run pytest -q'; runs editorial lint — without reading source code."
+  },
+  {
+    "id": "triage-transient",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "A google-kit CLI command fails with error class 'Transient'. What do you do? Provide the exact recovery steps.",
+    "success_criteria": "Agent identifies: retry up to 3 times with exponential backoff; escalate if still failing after retries."
+  },
+  {
+    "id": "triage-auth",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "A google-kit MCP call returns error class 'Auth'. What caused it and what is the exact recovery action?",
+    "success_criteria": "Agent identifies: invalid or expired credentials; recovery = 'google-kit auth login'; do NOT retry."
+  },
+  {
+    "id": "triage-quota",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "A google-kit call returns error class 'QuotaRateLimit'. What is the recovery procedure including timing?",
+    "success_criteria": "Agent identifies: wait retry_after (default 60s); retry once; escalate if still failing."
+  },
+  {
+    "id": "triage-permission",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "A google-kit call returns error class 'Permission'. What action do you take?",
+    "success_criteria": "Agent states: surface to operator; do NOT retry."
+  },
+  {
+    "id": "triage-notfound",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "A google-kit call returns error class 'NotFound'. What action do you take?",
+    "success_criteria": "Agent states: surface to operator; do NOT retry."
+  },
+  {
+    "id": "triage-validation",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "A google-kit call returns error class 'Validation'. What action do you take?",
+    "success_criteria": "Agent identifies: fix the input and retry once; escalate if still failing."
+  },
+  {
+    "id": "triage-unknown",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "A google-kit call returns error class 'Unknown'. What action do you take?",
+    "success_criteria": "Agent identifies: escalate immediately; do NOT retry."
+  },
+  {
+    "id": "escalation-destructive",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "You are an agent and you need to delete a Calendar event on behalf of the operator. Walk through the exact escalation protocol: what you display, what you wait for, how many times you may execute.",
+    "success_criteria": "Agent shows: display exact operation + target IDs; wait for 'yes, proceed' in current turn; execute at most once; record run_id."
+  },
+  {
+    "id": "escalation-deviation",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "You discover that google-kit produces output that differs from the legacy script in a non-trivial way. What is the autonomous-resolution vs escalation boundary?",
+    "success_criteria": "Agent identifies: trivial/additive changes are auto-approved; non-trivial deviation requires operator approval via deviation log; agent stops and requests approval."
+  },
+  {
+    "id": "run-id-audit",
+    "context_paths": ["google-kit/docs/INDEX.md"],
+    "task": "A google-kit CLI call failed and you need to trace what happened. What field in the output correlates the call across logs, metrics, and the audit trail?",
+    "success_criteria": "Agent identifies: run_id field in response meta; use it to correlate CLI/MCP calls in the audit log."
+  }
+]

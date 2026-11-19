@@ -1,0 +1,20 @@
+{
+  "kind": "tasks#tasks",
+  "items": [
+    {
+      "id": "task001",
+      "kind": "tasks#task",
+      "title": "Buy milk",
+      "status": "needsAction",
+      "due": "2024-01-20T00:00:00.000Z"
+    },
+    {
+      "id": "task002",
+      "kind": "tasks#task",
+      "title": "Submit report",
+      "status": "needsAction",
+      "notes": "Q4 summary report",
+      "due": "2024-01-25T00:00:00.000Z"
+    }
+  ]
+}

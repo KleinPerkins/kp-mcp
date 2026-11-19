@@ -1,0 +1,15 @@
+{
+  "response_id": "resp001",
+  "create_time": "2025-01-10T14:00:00Z",
+  "answer_count": 2,
+  "answers": [
+    {
+      "question_id": "qid001",
+      "text_values": ["Alice"]
+    },
+    {
+      "question_id": "qid002",
+      "text_values": ["5"]
+    }
+  ]
+}

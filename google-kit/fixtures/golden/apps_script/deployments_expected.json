@@ -1,0 +1,14 @@
+{
+  "deployments": [
+    {
+      "deploymentId": "deploy001",
+      "deploymentConfig": {
+        "scriptId": "script001",
+        "versionNumber": 2,
+        "manifestFileName": "appsscript",
+        "description": "Production"
+      },
+      "updateTime": "2024-03-20T10:00:00Z"
+    }
+  ]
+}
