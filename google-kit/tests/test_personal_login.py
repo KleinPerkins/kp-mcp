@@ -307,7 +307,8 @@ class Connection:
     def getresponse(self):return self.response
     def close(self):self.closed=True
 
-def test_real_default_personal_flow_and_transport_integrate_through_actual_CLI(setup,capsys):
+@pytest.mark.parametrize('authorization_changed',[False,True])
+def test_real_default_personal_flow_and_transport_integrate_through_actual_CLI(setup,capsys,authorization_changed):
     responses=[Response({'access_token':ACCESS,'refresh_token':REFRESH,'token_type':'Bearer','scope':'email openid'}),Response(setup[2].info)]
     connections=[];hosts=[];auth_urls=[]
     def factory(host,**kw):
@@ -323,15 +324,36 @@ def test_real_default_personal_flow_and_transport_integrate_through_actual_CLI(s
         with urllib.request.urlopen(redirect+'/?'+urllib.parse.urlencode({'state':params['state'][0],'code':'SYNTHETIC_CODE'}),timeout=3) as reply:assert reply.status==200
         return True
     transport=p.PersonalGoogleTransport(_connection_factory=factory)
-    with patch('kp_mcp_bootstrap.oauth.webbrowser.open',side_effect=open_browser):
+    # This case integrates OAuth/transport/CLI, not live ancestor-directory stability.
+    # Inject controlled before/after snapshots while the loopback server runs;
+    # unrelated hosted macOS temp-directory activity can change ancestor st_nlink.
+    # Real snapshot/race refusals remain covered in test_personal_authz_snapshot.py
+    # and test_final_authorization_change_is_held_after_create_without_deleting_foreign_data.
+    snapshot=p.read_authorizations(config_dir=setup[0]['config_dir'],profile=PROFILE,
+        operations=setup[0]['operations'],expected_inventory_digest=setup[0]['expected_inventory_digest'])
+    changed_snapshot=json.loads(json.dumps(snapshot))
+    changed_snapshot['directory_identities'][-1]['identity'][4]+=1
+    after=changed_snapshot if authorization_changed else snapshot
+    with patch.object(p,'read_authorizations',side_effect=[snapshot,after,after]) as observations, \
+         patch('kp_mcp_bootstrap.oauth.webbrowser.open',side_effect=open_browser):
         with pytest.raises(SystemExit) as e:main(cli_args(setup),_store_factory=setup[0]['store_factory'],_transport_factory=lambda:transport)
-    assert e.value.code==0 and len(auth_urls)==1 and len(connections)==2
+    assert len(auth_urls)==1 and len(connections)==2
     request,kw=connections[0].requests[0];assert request==('POST','/token')
     body=urllib.parse.parse_qs(kw['body'].decode())
     assert body['client_id']==[CLIENT] and body['client_secret']==[SECRET] and body['code']==['SYNTHETIC_CODE']
     assert len(body['code_verifier'][0])>=43
     assert all(c.closed and c.debug==0 for c in connections)
-    report=json.loads(capsys.readouterr().out);assert report['status']=='verified_credentials_created';assert_no_secrets(report)
+    output=capsys.readouterr()
+    if authorization_changed:
+        report=json.loads(output.err)
+        assert e.value.code==1 and observations.call_count==2
+        assert report['reason']=='authorization_changed' and report['created_keys']==[]
+        assert setup[1].data=={} and not creations(setup[1])
+    else:
+        report=json.loads(output.out)
+        assert e.value.code==0 and observations.call_count==3
+        assert report['status']=='verified_credentials_created'
+    assert_no_secrets(report)
 
 @pytest.mark.parametrize('status,kind,raw',[
     (302,'application/json',b'{"error":"'+ACCESS.encode()+b'"}'),
