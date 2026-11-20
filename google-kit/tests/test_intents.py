@@ -301,11 +301,24 @@ class TestSharedEngineCompatibility:
         native_files = {row["path"]: row for row in native_delta["files"]}
         assert len(native_delta["files"]) == 2
         assert set(native_files) == {"INDEX.md", "QUICKSTART.md"}
+        successor_delta = json.loads((baseline_path.parent / "clean_successor_doc_delta.json").read_text())
+        assert successor_delta["schema"] == "kp-mcp/clean-successor-doc-compatibility-delta/v1"
+        assert successor_delta["baseline_commit"] == baseline["baseline_commit"]
+        assert successor_delta["accepted_successor_seed"] == "9f09f5c7e95c96520c8d81eae654137c9a26a87b"
+        assert successor_delta["repository"] == "KleinPerkins/kp-mcp"
+        assert successor_delta["repository_id"] == 1460922143
+        successor_files = {row["path"]: row for row in successor_delta["files"]}
+        assert len(successor_delta["files"]) == len(successor_files) == 2
+        assert set(successor_files) == {"cards/drive.upload.md", "schemas/drive.upload.json"}
         # Keep the historical E6 fixture immutable. Only the explicit registrar
-        # Quickstart delta and the exact accepted native-style doc successor are
-        # normalized in reverse acceptance order. Every other byte stays exact.
+        # Quickstart delta, accepted native-style docs and the exact clean-seed
+        # folder-name docs delta are normalized in reverse acceptance order.
+        # Every other byte stays exact.
         normalized_rows = []
         for name, digest in docs_rows:
+            if name in successor_files:
+                assert digest == successor_files[name]["after_sha256"]
+                digest = successor_files[name]["before_sha256"]
             if name in native_files:
                 assert digest == native_files[name]["after_sha256"]
                 digest = native_files[name]["before_sha256"]

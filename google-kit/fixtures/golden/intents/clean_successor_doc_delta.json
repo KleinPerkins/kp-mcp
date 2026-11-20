@@ -1,0 +1,20 @@
+{
+  "schema": "kp-mcp/clean-successor-doc-compatibility-delta/v1",
+  "baseline_commit": "ae4c7c9346adcb1e1f549840a59d60e3814d9420",
+  "accepted_successor_seed": "9f09f5c7e95c96520c8d81eae654137c9a26a87b",
+  "repository": "KleinPerkins/kp-mcp",
+  "repository_id": 1460922143,
+  "reason": "The accepted clean successor seed uses the generic google-kit-uploads folder name in the generated Drive upload card and schema. This fixture records only that exact documentation delta; it changes no runtime source, default, resolver or historical baseline.",
+  "files": [
+    {
+      "path": "cards/drive.upload.md",
+      "before_sha256": "ae3b2066116ad6c13c68ea0679e4ffa2dcf0a9fbf69b9f3d291942fe71b40018",
+      "after_sha256": "0f38c29e60b45f58616e43efec6279c91ae1672c4f9f0c7b56dddece2effac61"
+    },
+    {
+      "path": "schemas/drive.upload.json",
+      "before_sha256": "979308c0a1a8feb2a822c7cfe6d8bddf09bc8b6b5424577911b362ce3652658a",
+      "after_sha256": "cdd2d9a7a0d67c9689de944109edd83787acab258c4d137283b5be2d6626f530"
+    }
+  ]
+}
